@@ -3,7 +3,7 @@ import IconCancel from "@icons/IconCancel";
 import BaseSpacer from "@components/ui/BaseSpacer";
 import Socials from "@components/ui/Socials";
 import Modal from "@components/ui/BaseModal";
-import {useState} from "react";
+import {FormEvent, useState} from "react";
 import BaseInput from "@components/ui/BaseInput";
 import AvatarWithName from "@components/ui/AvatarWithName";
 
@@ -52,7 +52,7 @@ const ContactModal = ({
 }: ContactModalProps) => {
   const [formData, setFormData] = useState<FormDataType>({...initialFormData});
 
-  const sendRequest = async (e) => {
+  const sendRequest = async (e: FormEvent) => {
     e.preventDefault();
     await console.log({...formData});
   };
