@@ -1,0 +1,139 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  h1 {
+    @apply text-large-title;
+  }
+  h2 {
+    @apply text-title;
+  }
+}
+
+@layer utilities {
+  .custom-scrollbar {
+    /*scrollbar-width: thin;*/
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  .custom-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .base-padding {
+    @apply px-10 py-5 tablet:px-5 sm:px-3.75 sm:py-3.75;
+  }
+
+  .base-vertical-grid {
+    @apply grid grid-cols-12 tablet:grid-cols-6 sm:grid-cols-3 gap-x-5 sm:gap-x-4;
+  }
+
+  .text-body {
+    font-size: 1.375vw;
+    line-height: 2.1875vw;
+  }
+
+  @media (max-width: 1200px) {
+    .text-body {
+      font-size: 1.833vw;
+      line-height: 2.9167vw;
+    }
+  }
+  @media (max-width: 900px) {
+    .text-body {
+      font-size: 2.375vw;
+      line-height: 3.75vw;
+    }
+  }
+  @media (max-width: 600px) {
+    .text-body {
+      font-size: 4.444vw;
+      line-height: 6.94vw;
+    }
+  }
+  .text-title {
+    font-size: 3vw;
+    line-height: 3.44vw;
+  }
+
+  @media (max-width: 1200px) {
+    .text-title {
+      font-size: 4vw;
+      line-height: 4.583vw;
+    }
+  }
+  @media (max-width: 900px) {
+    .text-title {
+      font-size: 5vw;
+      line-height: 6.25vw;
+    }
+  }
+  @media (max-width: 600px) {
+    .text-title {
+      font-size: 8.889vw;
+      line-height: 11.11vw;
+    }
+  }
+  .text-large-title {
+    font-size: 6.562vw;
+    line-height: 7.5vw;
+  }
+
+  @media (max-width: 1200px) {
+    .text-large-title {
+      font-size: 8.75vw;
+      line-height: 10vw;
+    }
+  }
+  @media (max-width: 900px) {
+    .text-large-title {
+      font-size: 8.75vw;
+      line-height: 11.25vw;
+    }
+  }
+  @media (max-width: 600px) {
+    .text-large-title {
+      font-size: 13.889vw;
+      line-height: 16.67vw;
+    }
+  }
+  .text-callout {
+    font-size: 1vw;
+    line-height: 1.5625vw;
+    font-weight: 500;
+  }
+
+  @media (max-width: 1200px) {
+    .text-callout {
+      font-size: 1.333vw;
+      line-height: 2.083vw;
+    }
+  }
+  @media (max-width: 900px) {
+    .text-callout {
+      font-size: 1.75vw;
+      line-height: 2.5vw;
+    }
+  }
+  @media (max-width: 600px) {
+    .text-callout {
+      font-size: 3.333vw;
+      line-height: 5.56vw;
+    }
+  }
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  box-sizing: border-box;
+}
