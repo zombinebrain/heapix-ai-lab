@@ -47,14 +47,14 @@ export default function Home() {
       });
     }, []);*/
 
-  const [scope, animate] = useAnimate()
+/*  const [scope, animate] = useAnimate()
   const isInView = useInView(scope)
 
   useEffect(() => {
     if (isInView) {
       animate(scope.current, {opacity: 1})
     }
-  }, [isInView])
+  }, [isInView])*/
 
   return (
     <BaseLayout>
@@ -166,8 +166,7 @@ export default function Home() {
         <BaseSpacer/>
       </div>
       <BaseTitle id="workflow" title="Workflow"/>
-      <section ref={scope}
-               className="base-padding overflow-x-hidden flex flex-col items-center space-y-3 overflow-x-auto max-h-[500px]">
+      <section className="base-padding overflow-x-hidden flex flex-col items-center space-y-3 overflow-x-auto max-h-[500px]">
         {
           workflowCards.map((card, i) => (
             <div id={card.id} key={card.id} className="flex items-center w-[740px]">
