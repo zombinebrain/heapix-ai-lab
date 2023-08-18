@@ -8,19 +8,22 @@ type ServicesCollapsibleProps = {
   content: {
     technologies: Array<TechnologiesType>,
     tags: string[]
-  }
+  },
+  onOpenClick: (val: string | null) => void,
+  openedId: string | null
 };
 
 const ServicesCollapsible = ({
   name,
-  content
+  content,
+  onOpenClick,
+  openedId
 }: ServicesCollapsibleProps) => {
-  const [openedService, setOpenedService] = useState<string | null>(null);
 
   return (
     <BaseCollapsible
-      openedId={openedService}
-      onOpenClick={setOpenedService}
+      openedId={openedId}
+      onOpenClick={onOpenClick}
       key={name}
       name={name}
       content={

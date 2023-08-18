@@ -2,8 +2,6 @@ import IconMinus from '@components/icons/IconMinus';
 import IconPlus from '@components/icons/IconPlus';
 import {ReactNode} from 'react';
 import { motion, AnimatePresence } from "framer-motion";
-import IconCancel from "@icons/IconCancel";
-import IconBurger from "@icons/IconBurger";
 
 type BaseCollapsibleProps = {
   name: string,

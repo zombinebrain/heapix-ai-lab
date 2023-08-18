@@ -56,6 +56,8 @@ export default function Home() {
     }
   }, [isInView])*/
 
+  const [openedService, setOpenedService] = useState<string | null>(null);
+
   return (
     <BaseLayout>
       <section className="flex flex-col items-center pt-25 sm:py-12.5 sm:px-3.75">
@@ -131,7 +133,13 @@ export default function Home() {
         <motion.div className="w-2/3 tablet:w-5/6 sm:w-full">
           {
             Object.entries(servicesCards).slice(0, 9).map(entry => (
-              <ServicesCollapsible name={entry[0]} content={entry[1]} key={entry[0]} />
+              <ServicesCollapsible
+                openedId={openedService}
+                onOpenClick={setOpenedService}
+                name={entry[0]}
+                content={entry[1]}
+                key={entry[0]}
+              />
             ))
           }
           <AnimatePresence>
@@ -145,7 +153,13 @@ export default function Home() {
                 >
                   {
                     Object.entries(servicesCards).slice(9).map(entry => (
-                      <ServicesCollapsible name={entry[0]} content={entry[1]} key={entry[0]} />
+                      <ServicesCollapsible
+                        openedId={openedService}
+                        onOpenClick={setOpenedService}
+                        name={entry[0]}
+                        content={entry[1]}
+                        key={entry[0]}
+                      />
                     ))
                   }
                 </motion.div>
