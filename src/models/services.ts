@@ -19,7 +19,7 @@ export type TechnologiesType = {
 };
 
 export type ServicesCardsType = {
-  [K: SERVICES_IDS]: {
+  [key in SERVICES_IDS]: {
     technologies: Array<TechnologiesType>,
     tags: string[]
   }
