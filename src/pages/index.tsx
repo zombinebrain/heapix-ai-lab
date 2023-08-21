@@ -98,7 +98,10 @@ export default function Home() {
         </div>
       </section>
       <section className="px-10 tablet:px-5 sm:px-0">
-        <BaseBanner/>
+        <video className="w-full" autoPlay loop>
+          <source src="/banner-video.mp4" type="video/mp4" />
+          Sorry, your browser doesn't support videos.
+        </video>
       </section>
       <div className="sm:hidden">
         <BaseSpacer/>
@@ -107,7 +110,7 @@ export default function Home() {
       <motion.section
         initial="offscreen"
         whileInView="onscreen"
-        viewport={{ once: true, amount: 0.7 }}
+        viewport={{ once: true, amount: 0.5 }}
         className="base-padding flex justify-end overflow-hidden"
       >
         <motion.div
