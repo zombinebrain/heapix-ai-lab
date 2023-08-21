@@ -98,7 +98,7 @@ export default function Home() {
         </div>
       </section>
       <section className="px-10 tablet:px-5 sm:px-0">
-        <video className="w-full" autoPlay loop>
+        <video className="w-full" autoPlay loop muted>
           <source src="/banner-video.mp4" type="video/mp4" />
           Sorry, your browser doesn't support videos.
         </video>
