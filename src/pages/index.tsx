@@ -11,8 +11,10 @@ import {workflowCards} from "../data/workflow";
 import {benefits} from "../data/benefits";
 import BaseBanner from "@components/ui/BaseBanner";
 import ShowMoreBtn from "@components/ui/ShowMoreBtn";
-import {motion, AnimatePresence, useAnimate, useInView} from "framer-motion";
+import {motion, AnimatePresence, useAnimate, useInView, Variants} from "framer-motion";
 import ServicesCollapsible from "@components/ServicesCollapsible";
+import {TypeAnimation} from "react-type-animation";
+import BaseTypeWriter from "@components/ui/BaseTypeWriter";
 
 export default function Home() {
   const [isOpenBenefits, setIsOpenBenefits] = useState(false);
@@ -56,15 +58,31 @@ export default function Home() {
     }
   }, [isInView])*/
 
+  const variants: Variants = {
+    offscreen: {
+      x: "150%"
+    },
+    onscreen: {
+      x: 0,
+      transition: {
+        type: "spring",
+        bounce: 0.2,
+        duration: 0.5
+      }
+    }
+  };
+
   const [openedService, setOpenedService] = useState<string | null>(null);
 
   return (
     <BaseLayout>
       <section className="flex flex-col items-center pt-25 sm:py-12.5 sm:px-3.75">
         <BaseTag text="Created in a collaboration with AI" className="hidden sm:block sm:mb-7.5"/>
-        <h2 className="w-full text-center pb-35 sm:pb-12.5 max-w-[50%] md:max-w-[65%] tablet:max-w-[80%] sm:max-w-full">
-          HEAPIX AI Lab: Maximise efficiency with our solutions
-        </h2>
+        <div className="font-title w-full text-center pb-35 sm:pb-12.5 max-w-[50%] md:max-w-[65%] tablet:max-w-[80%] sm:max-w-full">
+          <BaseTypeWriter
+            text="HEAPIX AI Lab: Maximise efficiency with our solutions"
+          />
+        </div>
         <div className="base-padding flex flex-col items-end text-body border-t sm:border-none border-grey-800">
           <p className="w-1/2 mb-10 sm:hidden">
             Discover the Power of AI in Business: Elevate Your Efficiency, Enhance Decision-Making, and Drive
@@ -83,8 +101,16 @@ export default function Home() {
         <BaseSpacer/>
       </div>
       <BaseTitle id="benefits" title="Benefits of using AI in business"/>
-      <section className="base-padding flex justify-end">
-        <div className="w-1/2 sm:w-full flex flex-col">
+      <motion.section
+        initial="offscreen"
+        whileInView="onscreen"
+        viewport={{ once: true, amount: 0.8 }}
+        className="base-padding flex justify-end overflow-hidden"
+      >
+        <motion.div
+          variants={variants}
+          className="w-1/2 sm:w-full flex flex-col"
+        >
           {
             benefits.slice(0,3).map(item => (
               <Benefit
@@ -120,8 +146,8 @@ export default function Home() {
             isOpen={isOpenBenefits}
             onClick={() => setIsOpenBenefits(!isOpenBenefits)}
           />
-        </div>
-      </section>
+        </motion.div>
+      </motion.section>
       <BaseSpacer/>
       <BaseTitle
         id="about"
