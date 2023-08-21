@@ -5,10 +5,9 @@ import {ModalContext} from "../contexts/ModalContext";
 import {useContext, useState} from "react";
 import {scrollIntoView} from "../utils/scrollIntoView";
 import IconCancel from "@icons/IconCancel";
-import {motion, AnimatePresence, useAnimate, useInView} from "framer-motion";
+import {motion, AnimatePresence} from "framer-motion";
 
-
-const navButtons = [
+export const navButtons = Object.freeze([
   {
     id: 'benefits',
     name: 'Benefits'
@@ -26,18 +25,18 @@ const navButtons = [
     name: 'Workflow'
   },
   {
-    id: 'contact',
-    name: 'Contact us'
+    id: 'contacts',
+    name: 'Contacts'
   }
-];
+]);
 
 const Header = () => {
-  const { setOpenModal } = useContext(ModalContext);
+  const { setIsOpenedModal } = useContext(ModalContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleClick = (id: string) => {
-    if (id === 'contact') {
-      setOpenModal(true);
+    if (id === 'contacts') {
+      setIsOpenedModal(true);
       return ;
     }
     scrollIntoView(id);

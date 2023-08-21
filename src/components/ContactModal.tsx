@@ -6,6 +6,7 @@ import Modal from "@components/ui/BaseModal";
 import {FormEvent, useState} from "react";
 import BaseInput from "@components/ui/BaseInput";
 import AvatarWithName from "@components/ui/AvatarWithName";
+import BookMeetingBtn from "@components/ui/BookMeetingBtn";
 
 type ContactModalProps = {
   onClose: () => void;
@@ -71,7 +72,7 @@ const ContactModal = ({
             </button>
           }
         />
-        <BaseSpacer/>
+        <BookMeetingBtn />
         <div className="grid grid-cols-12 tablet:grid-cols-6 sm:grid-cols-3 flex-auto">
           <form
             onSubmit={sendRequest}

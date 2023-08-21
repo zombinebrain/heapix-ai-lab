@@ -2,12 +2,14 @@ import {useEffect, useState} from "react";
 
 type BaseTypeWriterProps = {
   text: string,
-  delay?: number
+  delay?: number,
+  className?: string
 }
 
 const BaseTypeWriter = ({
   text = '',
-  delay = 100
+  delay = 100,
+  className = ''
 }: BaseTypeWriterProps) => {
   const [currentText, setCurrentText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -26,9 +28,9 @@ const BaseTypeWriter = ({
   }, [currentIndex, delay, text]);
 
   return (
-    <h2 className="min-h-[2.5em] sm:min-h-[4em]">
+    <span className={className}>
       {currentText} {currentIndex < text.length && <span className="blink-caret border-r pl-2" />}
-    </h2>
+    </span>
   );
 };
 

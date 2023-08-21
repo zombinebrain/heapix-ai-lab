@@ -2,26 +2,14 @@ import Socials from '@components/ui/Socials';
 import BookMeetingBtn from "@components/ui/BookMeetingBtn";
 import {scrollIntoView} from "../../utils/scrollIntoView";
 import { motion } from "framer-motion";
+import {navButtons} from "@components/Header";
+import {useContext} from "react";
+import {ModalContext} from "../../contexts/ModalContext";
 
 const MobileMenu = ({ onClose, isOpened }) => {
-  const nav = [
-    {
-      id: 'benefits',
-      name: 'Benefits'
-    },
-    {
-      id: 'about',
-      name: 'About us'
-    },
-    {
-      id: 'services',
-      name: 'Services'
-    },
-    {
-      id: 'workflow',
-      name: 'Workflow'
-    }
-  ].map(item => {
+  const { setIsOpenedModal } = useContext(ModalContext);
+
+  const nav = navButtons.map(item => {
     return (
       <button
         onClick={() => handleClick(item.id)}
@@ -35,6 +23,10 @@ const MobileMenu = ({ onClose, isOpened }) => {
 
   const handleClick = (id: string) => {
     onClose();
+    if (id === 'contacts') {
+      setIsOpenedModal(true);
+      return ;
+    }
     scrollIntoView(id);
   };
 
