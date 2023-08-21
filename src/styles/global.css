@@ -124,6 +124,17 @@
   }
 }
 
+/*style type animation cursor*/
+.blink-caret {
+  animation: blink-caret .75s step-end infinite;
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: #FFEF42; }
+  100% { border-color: #FFEF42; }
+}
+
 html,
 body {
   padding: 0;
