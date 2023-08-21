@@ -60,10 +60,12 @@ export default function Home() {
 
   const variants: Variants = {
     offscreen: {
-      x: "150%"
+      y: "100%",
+      opacity: 0
     },
     onscreen: {
-      x: 0,
+      y: 0,
+      opacity: 1,
       transition: {
         type: "spring",
         bounce: 0.2,
@@ -81,6 +83,7 @@ export default function Home() {
         <div className="font-title w-full text-center pb-35 sm:pb-12.5 max-w-[50%] md:max-w-[65%] tablet:max-w-[80%] sm:max-w-full">
           <BaseTypeWriter
             text="HEAPIX AI Lab: Maximise efficiency with our solutions"
+            delay={70}
           />
         </div>
         <div className="base-padding flex flex-col items-end text-body border-t sm:border-none border-grey-800">
@@ -104,7 +107,7 @@ export default function Home() {
       <motion.section
         initial="offscreen"
         whileInView="onscreen"
-        viewport={{ once: true, amount: 0.8 }}
+        viewport={{ once: true, amount: 0.7 }}
         className="base-padding flex justify-end overflow-hidden"
       >
         <motion.div
