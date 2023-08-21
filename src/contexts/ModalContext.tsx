@@ -1,23 +1,23 @@
 import { createContext, Dispatch, SetStateAction, useState } from 'react';
 
 type ModalContextProps = {
-  openModal: boolean,
-  setOpenModal: Dispatch<SetStateAction<boolean>>
+  isOpenedModal: boolean,
+  setIsOpenedModal: Dispatch<SetStateAction<boolean>>
 };
 
 export const ModalContext = createContext<ModalContextProps>({
-  openModal: false,
-  setOpenModal: () => {}
+  isOpenedModal: false,
+  setIsOpenedModal: () => {}
 });
 
 export function ModalContextProvider({ children }) {
-  const [openModal, setOpenModal] = useState(false);
+  const [isOpenedModal, setIsOpenedModal] = useState(false);
 
   return (
     <ModalContext.Provider
       value={{
-        openModal,
-        setOpenModal
+        isOpenedModal: isOpenedModal,
+        setIsOpenedModal: setIsOpenedModal
       }}
     >
       {children}

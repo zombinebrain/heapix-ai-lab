@@ -4,15 +4,16 @@ import Footer from '@components/Footer';
 import { useContext } from 'react';
 import { ModalContext } from '../contexts/ModalContext';
 import ContactModal from "@components/ContactModal";
+import {AnimatePresence} from "framer-motion";
 
 const Layout = ({ children }) => {
   const {
-    openModal,
-    setOpenModal
+    isOpenedModal,
+    setIsOpenedModal
   } = useContext(ModalContext);
 
   const handleModalClose = () => {
-    setOpenModal(false);
+    setIsOpenedModal(false);
   };
 
   return (
@@ -22,7 +23,7 @@ const Layout = ({ children }) => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
         {/* <link rel="icon" type="image/ico" sizes="16x16" href="/favicon.ico" /> */}
       </Head>
-      <main className="flex min-h-screen flex-col bg-black text-white pt-[55px] tablet:mt-12.5">
+      <main className="flex min-h-screen flex-col bg-black text-white pt-[55px]">
         <Header/>
         <div>
           {children}
@@ -30,9 +31,11 @@ const Layout = ({ children }) => {
         <Footer/>
       </main>
       <div id="modal"/>
-      {openModal && (
-        <ContactModal onClose={handleModalClose} />
-      )}
+      <AnimatePresence>
+        {isOpenedModal && (
+          <ContactModal onClose={handleModalClose} />
+        )}
+      </AnimatePresence>
     </>
   );
 };

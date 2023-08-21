@@ -1,25 +1,36 @@
 import React, { useRef, useContext } from "react";
 import { createPortal } from "react-dom";
 import { ModalContext } from "../../contexts/ModalContext";
+import { motion } from "framer-motion";
 
+const variants = {
+  open: { opacity: 1, y: 0,},
+  closed: { opacity: 1, y: '20%',},
+};
 
 function Modal({children}) {
-  const { setOpenModal } = useContext(ModalContext);
+  const { isOpenedModal, setIsOpenedModal } = useContext(ModalContext);
   const modalRef = useRef();
+
   const closeModal = (e) => {
     if (modalRef.current === e.target) {
-      setOpenModal(false);
+      setIsOpenedModal(false);
     }
   };
 
   return createPortal(
-    <div
+    <motion.div
+      initial="closed"
+      animate={isOpenedModal ? "open" : "closed"}
+      exit="closed"
+      variants={variants}
+      transition={{duration: .1}}
       className="overflow-y-auto fixed top-0 left-0 right-0 w-screen h-screen bg-black z-9999 text-white"
       onClick={(e) => closeModal(e)}
       ref={modalRef}
     >
       {children}
-    </div>,
+    </motion.div>,
     document.getElementById("modal")
   );
 }

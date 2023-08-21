@@ -81,10 +81,13 @@ export default function Home() {
       <section className="flex flex-col items-center pt-25 sm:py-12.5 sm:px-3.75">
         <BaseTag text="Created in a collaboration with AI" className="hidden sm:block sm:mb-7.5"/>
         <div className="font-title w-full text-center pb-35 sm:pb-12.5 max-w-[50%] md:max-w-[65%] tablet:max-w-[80%] sm:max-w-full">
-          <BaseTypeWriter
-            text="HEAPIX AI Lab: Maximise efficiency with our solutions"
-            delay={70}
-          />
+          <h2 className="min-h-[2.5em] sm:min-h-[3.8em]">
+            <span>HEAPIX AI Lab: </span>
+            <BaseTypeWriter
+              text="Maximise efficiency with our solutions"
+              delay={70}
+            />
+          </h2>
         </div>
         <div className="base-padding flex flex-col items-end text-body border-t sm:border-none border-grey-800">
           <p className="w-1/2 mb-10 sm:hidden">
