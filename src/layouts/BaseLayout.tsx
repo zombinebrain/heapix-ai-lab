@@ -22,7 +22,7 @@ const Layout = ({ children }) => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
         {/* <link rel="icon" type="image/ico" sizes="16x16" href="/favicon.ico" /> */}
       </Head>
-      <main className="flex min-h-screen flex-col bg-black text-white mt-[55px] tablet:mt-12.5">
+      <main className="flex min-h-screen flex-col bg-black text-white pt-[55px] tablet:mt-12.5">
         <Header/>
         <div>
           {children}
