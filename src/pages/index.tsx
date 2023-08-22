@@ -74,15 +74,6 @@ export default function Home() {
     }
   };
 
-  useEffect(() => {
-    document.querySelector('video').addEventListener('timeupdate', function(e: any) {
-      if(e.target.duration - e.target.currentTime <= 0.01) {
-        e.target.currentTime = 0;
-        e.target.play();
-      }
-    }, false);
-  }, []);
-
   const [openedService, setOpenedService] = useState<string | null>(null);
 
   return (
@@ -110,8 +101,12 @@ export default function Home() {
         </div>
       </section>
       <section className="px-10 tablet:px-5 sm:px-0">
-        <video className="w-full" autoPlay muted playsInline>
+        <video className="w-full tablet:hidden" autoPlay muted playsInline loop>
           <source src="/banner-video.mp4" type="video/mp4" />
+          Sorry, your browser doesn't support videos.
+        </video>
+        <video className="w-full hidden tablet:block" autoPlay muted playsInline loop>
+          <source src="/banner-video-compressed.mp4" type="video/mp4" />
           Sorry, your browser doesn't support videos.
         </video>
       </section>
