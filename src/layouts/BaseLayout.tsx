@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import Header from '@components/Header';
 import Footer from '@components/Footer';
 import { useContext } from 'react';
@@ -18,11 +17,6 @@ const Layout = ({ children }) => {
 
   return (
     <>
-      <Head>
-        <title>Heapix</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
-        {/* <link rel="icon" type="image/ico" sizes="16x16" href="/favicon.ico" /> */}
-      </Head>
       <main className="flex min-h-screen flex-col bg-black text-white pt-[55px]">
         <Header/>
         <div>
