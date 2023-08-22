@@ -11,52 +11,13 @@ import {workflowCards} from "../data/workflow";
 import {benefits} from "../data/benefits";
 import BaseBanner from "@components/ui/BaseBanner";
 import ShowMoreBtn from "@components/ui/ShowMoreBtn";
-import {motion, AnimatePresence, useAnimate, useInView, Variants} from "framer-motion";
+import {motion, AnimatePresence, Variants} from "framer-motion";
 import ServicesCollapsible from "@components/ServicesCollapsible";
-import {TypeAnimation} from "react-type-animation";
 import BaseTypeWriter from "@components/ui/BaseTypeWriter";
 
 export default function Home() {
   const [isOpenBenefits, setIsOpenBenefits] = useState(false);
   const [isOpenServices, setIsOpenServices] = useState(false);
-
-  /*  const [scroller, initScroller] = useState(0);
-    const handleScroll = (event) => {
-      const height = event.currentTarget.clientHeight;
-      const barHeight = event.currentTarget.scrollHeight;
-      const scrollTop = event.currentTarget.scrollTop;
-      initScroller(((scrollTop + height) / barHeight) * 100);
-    };
-
-
-    useEffect(() => {
-      workflowCards.forEach(card => {
-        let box = document.getElementById(card.id);
-        //let top = box.getBoundingClientRect().top;
-        let workflow = document.getElementById('workflow-block');
-        let docHeight = workflow.offsetHeight;
-        let docTop = workflow.offsetTop;
-        console.log(docHeight, docTop, box.offsetTop)
-
-
-        workflow.addEventListener( 'scroll', function() {
-          // normalize scroll position as percentage
-          let scrolled = workflow.scrollTop / ( box.offsetTop - docTop );
-          console.log(card.id, scrolled)
-          box.style.transform = 'scale(' + scrolled + ')';
-
-        }, false);
-      });
-    }, []);*/
-
-/*  const [scope, animate] = useAnimate()
-  const isInView = useInView(scope)
-
-  useEffect(() => {
-    if (isInView) {
-      animate(scope.current, {opacity: 1})
-    }
-  }, [isInView])*/
 
   const variants: Variants = {
     offscreen: {
@@ -105,8 +66,12 @@ export default function Home() {
           <source src="/banner-video.mp4" type="video/mp4" />
           Sorry, your browser doesn't support videos.
         </video>
-        <video className="w-full hidden tablet:block" autoPlay muted playsInline loop>
+        <video className="w-full hidden tablet:block sm:hidden" autoPlay muted playsInline loop>
           <source src="/banner-video-compressed.mp4" type="video/mp4" />
+          Sorry, your browser doesn't support videos.
+        </video>
+        <video className="w-full hidden hidden sm:block" autoPlay muted playsInline loop>
+          <source src="/banner-video-compressed-mobile.mp4" type="video/mp4" />
           Sorry, your browser doesn't support videos.
         </video>
       </section>
