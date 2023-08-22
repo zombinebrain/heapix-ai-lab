@@ -1,12 +1,13 @@
 import BaseTitle from "@components/ui/BaseTitle";
 import IconCancel from "@icons/IconCancel";
-import BaseSpacer from "@components/ui/BaseSpacer";
 import Socials from "@components/ui/Socials";
 import Modal from "@components/ui/BaseModal";
-import {FormEvent, useState} from "react";
+import {ChangeEvent, FormEvent, useRef, useState} from "react";
 import BaseInput from "@components/ui/BaseInput";
 import AvatarWithName from "@components/ui/AvatarWithName";
 import BookMeetingBtn from "@components/ui/BookMeetingBtn";
+import ReCAPTCHA from "react-google-recaptcha";
+import {isRequired, isValidEmail, ValidationError, validator} from "../utils/validate";
 
 type ContactModalProps = {
   onClose: () => void;
@@ -31,6 +32,12 @@ const initialFormData = Object.freeze({
   message: ''
 });
 
+const inputFieldsRules = {
+  name: [(v: string) => isRequired(v)],
+  email: [(v: string) => isRequired(v), (v: string) => isValidEmail(v)],
+  message: [(v: string) => isRequired(v)]
+}
+
 const inputFields = Object.freeze<inputFieldsType[]>([
   {
     label: 'Name',
@@ -52,11 +59,64 @@ const ContactModal = ({
   onClose
 }: ContactModalProps) => {
   const [formData, setFormData] = useState<FormDataType>({...initialFormData});
+  const [formDataErrors, setFormDataErrors] = useState({
+    name: [],
+    email: [],
+    message: []
+  });
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
 
-  const sendRequest = async (e: FormEvent) => {
-    e.preventDefault();
-    await console.log({...formData});
+  const isErrorField = (id: string) => formDataErrors[id].length;
+  const isErrorForm = Object.values(formDataErrors).some((value: Array<ValidationError>) => !!value.length);
+  const validate = () => {
+    let isError = false;
+    Object.keys(formData).forEach(key => {
+      const res = Array.from(validator(formData[key], inputFieldsRules[key]));
+      if (!isError) {
+        isError = !!res.length;
+      }
+      setFormDataErrors(prevState => ({
+        ...prevState,
+        [key]: res
+      }));
+    });
+    return isError;
   };
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    const isError = validate();
+    if (!isError) {
+      recaptchaRef.current.execute();
+    }
+  };
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { value, id } = e.target;
+    setFormDataErrors(prevState => ({
+      ...prevState,
+      [id]: []
+    }));
+    setFormData(prevState => ({
+      ...prevState,
+      [id]: value
+    }))
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.keyCode === 13 && !e.shiftKey) {
+      handleSubmit(e);
+    }
+  };
+
+  const onReCAPTCHAChange = async (captchaCode) => {
+    if(!captchaCode) {
+      return;
+    }
+    await console.log({...formData});
+    setFormData({...initialFormData});
+    recaptchaRef.current.reset();
+  }
 
   return (
     <Modal>
@@ -75,26 +135,33 @@ const ContactModal = ({
         <BookMeetingBtn />
         <div className="grid grid-cols-12 tablet:grid-cols-6 sm:grid-cols-3 flex-auto">
           <form
-            onSubmit={sendRequest}
-            className="flex flex-col text-body col-span-5 tablet:col-span-full border-t border-grey-800"
+            noValidate
+            onSubmit={handleSubmit}
+            className="relative flex flex-col text-body col-span-5 tablet:col-span-full border-t border-grey-800"
           >
             {
               inputFields.map(field => (
                   <BaseInput
                     key={field.id}
                     value={formData[field.id]}
-                    onChange={(val) => setFormData({
-                      ...formData,
-                      [field.id]: val
-                    })}
+                    onChange={handleChange}
                     label={field.label}
                     id={field.id}
+                    isError={isErrorField(field.id)}
                     type={field.type}
                     isTextArea={field.isTextArea}
+                    onKeyDown={field.isTextArea && handleKeyDown}
+                    required
                   />
                 )
               )
             }
+            <ReCAPTCHA
+              ref={recaptchaRef}
+              size="invisible"
+              sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+              onChange={onReCAPTCHAChange}
+            />
             <button
               type="submit"
               className="flex-1 group w-full px-11 py-6 sm:px-10 sm:py-5 flex flex-col items-center justify-center hover:bg-lemon"
@@ -112,25 +179,18 @@ const ContactModal = ({
                 <AvatarWithName />
               </div>
               <div className="text-grey-400 md:order-3 tablet:order-2 md:w-2/3 tablet:w-fit md:mt-7.5 tablet:mt-0">
-                <div>contact@heapix.com</div>
-                <div>BY +375 (44) 763-19-32</div>
+                contact@heapix.com
               </div>
               <div className="tablet:order-3 sm:my-10">
                 <Socials/>
               </div>
             </div>
             <div
-              className="flex space-x-12.5 items-center sm:flex-col sm:items-start sm:space-x-0 sm:space-y-4 sm:w-2/3">
+              className="flex space-x-12.5 items-center sm:flex-col sm:items-start sm:space-x-0 sm:space-y-4 sm:w-2/3 mr-14 tablet:mt-4">
               <div className="">
                 <div>HQ</div>
                 <div className="text-grey-400">
                   2680 N 1st St #200, San Jose, CA 95134, United States
-                </div>
-              </div>
-              <div className="">
-                <div>Europe Belarus</div>
-                <div className="text-grey-400">
-                  Minsk, 220015, 35a Ponomarenko str., office 701
                 </div>
               </div>
               <div className="">

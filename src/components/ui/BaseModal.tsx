@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 const variants = {
   open: { opacity: 1, y: 0,},
-  closed: { opacity: 1, y: '20%',},
+  closed: { opacity: 1, y: '100%',},
 };
 
 function Modal({children}) {
@@ -25,7 +25,7 @@ function Modal({children}) {
       exit="closed"
       variants={variants}
       transition={{duration: .1}}
-      className="overflow-y-auto fixed top-0 left-0 right-0 w-screen h-screen bg-black z-9999 text-white"
+      className="overflow-y-auto overflow-x-hidden fixed top-0 left-0 right-0 w-screen h-screen bg-black z-9999 text-white"
       onClick={(e) => closeModal(e)}
       ref={modalRef}
     >
