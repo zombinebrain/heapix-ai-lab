@@ -76,7 +76,7 @@ export default function Home() {
 
   useEffect(() => {
     document.querySelector('video').addEventListener('timeupdate', function(e: any) {
-      if(e.target.duration - e.target.currentTime <= 0.1) {
+      if(e.target.duration - e.target.currentTime <= 0.01) {
         e.target.currentTime = 0;
         e.target.play();
       }
