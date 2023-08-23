@@ -52,7 +52,7 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed bg-black top-0 left-0 right-0 flex justify-between items-center h-[55px] base-padding !py-0 border-b border-grey-800 z-50">
+    <header className="fixed bg-black top-0 left-0 right-0 flex justify-between items-center h-13.75 base-padding !py-0 border-b border-grey-800 z-50">
       <div>
         <IconHeapixLogo />
       </div>
