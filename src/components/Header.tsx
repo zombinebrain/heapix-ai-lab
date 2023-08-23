@@ -21,8 +21,8 @@ export const navButtons = Object.freeze([
     name: 'Services'
   },
   {
-    id: 'workflow',
-    name: 'Workflow'
+    id: 'faq',
+    name: 'FAQ'
   },
   {
     id: 'contacts',
