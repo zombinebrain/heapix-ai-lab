@@ -12,12 +12,12 @@
 }
 
 @layer utilities {
-  .custom-scrollbar {
+  .hidden-scrollbar {
     /*scrollbar-width: thin;*/
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
   }
-  .custom-scrollbar::-webkit-scrollbar {
+  .hidden-scrollbar::-webkit-scrollbar {
     display: none;
   }
 
@@ -122,6 +122,33 @@
       line-height: 5.56vw;
     }
   }
+}
+
+:root {
+  --primary: #82858C;
+  --secondary: #E4E5E7;
+}
+
+/* Scrollbar styles */
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) var(--secondary);
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--primary);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--secondary);
+  border-radius: 20px;
+  border: 3px solid var(--primary);
 }
 
 /*style type animation cursor*/
