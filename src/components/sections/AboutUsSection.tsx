@@ -105,7 +105,7 @@ const Paragraph = ({ className = '', text = '', margin }: ParagraphProps) => {
       style={{
         color: isInView ? 'white' : '#82858C'
       }}
-      transition={{ duration: .3 }}
+      transition={{ duration: .1 }}
       className={className}
     >
       { text }

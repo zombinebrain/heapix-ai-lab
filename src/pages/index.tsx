@@ -2,24 +2,19 @@ import Socials from "@components/ui/Socials";
 import BaseTag from "@components/ui/BaseTag";
 import BaseSpacer from "@components/ui/BaseSpacer";
 import BaseTitle from "@components/ui/BaseTitle";
-import Benefit from "@components/Benefit";
-import {useEffect, useState} from "react";
-import {servicesCards} from "../data/services";
+import {useState} from "react";
 import BookMeetingBtn from "@components/ui/BookMeetingBtn";
 import BaseLayout from "../layouts/BaseLayout";
-import {workflowCards} from "../data/workflow";
-import {benefits} from "../data/benefits";
 import BaseBanner from "@components/ui/BaseBanner";
-import ShowMoreBtn from "@components/ui/ShowMoreBtn";
-import {motion, AnimatePresence, Variants} from "framer-motion";
-import ServicesCollapsible from "@components/ServicesCollapsible";
 import BaseTypeWriter from "@components/ui/BaseTypeWriter";
 import BenefitsSection from "@components/sections/BenefitsSection";
 import AboutUsSection from "@components/sections/AboutUsSection";
+import ServicesSection from "@components/sections/ServicesSection";
+import {faqCards} from "../data/faq";
+import FaqCollapsible from "@components/FaqCollapsible";
 
 export default function Home() {
-  const [isOpenServices, setIsOpenServices] = useState(false);
-  const [openedService, setOpenedService] = useState<string | null>(null);
+  const [openedFaq, setOpenedFaq] = useState<string | null>(null);
 
   return (
     <BaseLayout>
@@ -66,8 +61,24 @@ export default function Home() {
       <BaseSpacer/>
       <AboutUsSection />
       <BaseSpacer/>
-      <BaseTitle id="services" title="AI-Powered Business Optimization"/>
-      <section className="base-padding !py-0 flex flex-col items-end">
+      <ServicesSection />
+      <BaseTitle id="faq" title="FAQ"/>
+      <section className="flex flex-col">
+          {
+            faqCards.map(card => (
+              <FaqCollapsible
+                openedId={openedFaq}
+                onOpenClick={setOpenedFaq}
+                title={card.title}
+                text={card.description}
+                key={card.id}
+                id={card.id}
+              />
+            ))
+          }
+      </section>
+      <BaseSpacer/>
+      {/*<section className="base-padding !py-0 flex flex-col items-end">
         <motion.div className="w-2/3 tablet:w-5/6 sm:w-full">
           {
             Object.entries(servicesCards).slice(0, 9).map(entry => (
@@ -109,11 +120,7 @@ export default function Home() {
             onClick={() => setIsOpenServices(!isOpenServices)}
           />
         </motion.div>
-      </section>
-      <BaseSpacer/>
-      <section className="px-10 sm:px-0">
-        <BaseBanner/>
-      </section>
+      </section>*/}
       <BookMeetingBtn/>
     </BaseLayout>
   )

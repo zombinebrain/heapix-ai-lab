@@ -10,7 +10,7 @@ const ShowMoreBtn = ({
   return (
     <button
       onClick={onClick}
-      className="text-body text-grey-400 py-5 w-fit hover:text-white"
+      className="text-body text-grey-400 py-5 w-fit hover:text-white transition-colors duration-300"
     >
       {`Show ${isOpen ? 'less' : 'more'}`}
     </button>
