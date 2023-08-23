@@ -1,5 +1,5 @@
 import { useState, Dispatch, SetStateAction } from 'react';
-import { ReactPortal } from './';
+import ReactPortal from './ReactPortal';
 // Define the props of Modal.
 type ModalProps = {
   isOpen: boolean,
