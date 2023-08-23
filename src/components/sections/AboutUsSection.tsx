@@ -19,6 +19,7 @@ import {
   useAnimationFrame, Variants, useInView
 } from "framer-motion";
 import {useCallback, useEffect, useLayoutEffect, useRef, useState} from "react";
+import useGetCurrentBreakpoint from "../../hooks/useGetCurrentBreakpoint";
 
 const AboutUsSection = () => {
   const icons = [
@@ -35,8 +36,13 @@ const AboutUsSection = () => {
   ];
 
   const { scrollYProgress } = useScroll();
+  const { currentBreakpoint } = useGetCurrentBreakpoint();
 
-  const moveX = useTransform(scrollYProgress, [0, 1], ["170%", "-170%"]);
+  const moveX = useTransform(
+    scrollYProgress,
+    [0, 1],
+    currentBreakpoint === 'sm' ? ["100%", "-170%"] : ["180%", "-170%"]
+  );
 
   return (
     <>
@@ -47,10 +53,12 @@ const AboutUsSection = () => {
         <Paragraph
           text="At  HEAPIX, we are AI experts specialising in large language and diffusion models."
           className="col-span-4 tablet:col-span-3"
+          margin={"-25% 0px -25% 0px"}
         />
         <Paragraph
           text="We harness the power of OpenAI's GPT-3.5, GPT-4, LLaMa 2, Stable Diffusion, Claude, and Falcon, utilising Python, LangChain, HuggingFace, and Pinecone's vector databases."
           className="row-start-2 col-start-5 col-span-full tablet:col-start-2"
+          margin={"0px 0px -30% 0px"}
         />
         <motion.div
           style={{ x: moveX }}
@@ -67,9 +75,9 @@ const AboutUsSection = () => {
         <Paragraph
           text="We transform data into insights, optimising processes for smarter and informed decisions."
           className="text-grey-400 col-span-8 tablet:col-span-full"
+          margin={"-25% 0px -25% 0px"}
         />
       </motion.section>
-      {/*<div ref={ghostRef} style={{ height: scrollRange }} className="ghost" />*/}
     </>
   );
 };
@@ -78,24 +86,18 @@ export default AboutUsSection;
 
 type ParagraphProps = {
   className: string,
-  text: string
-}
-
-const textVariants: Variants = {
-  offscreen: {
-    color: '#82858C'
-  },
-  onscreen: {
-    color: 'white',
-    transition: {
-      duration: 0.3
-    }
-  }
+  text: string,
+  margin?: string
 };
 
-const Paragraph = ({ className = '', text = '' }: ParagraphProps) => {
+const Paragraph = ({ className = '', text = '', margin }: ParagraphProps) => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: false, amount: "all", margin: "-20% 0px -20% 0px" });
+  const isInView = useInView(ref,
+    {
+      once: false,
+      amount: 0.9,
+      margin
+    });
 
   return (
     <motion.p
