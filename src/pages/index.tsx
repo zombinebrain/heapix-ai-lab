@@ -14,27 +14,11 @@ import ShowMoreBtn from "@components/ui/ShowMoreBtn";
 import {motion, AnimatePresence, Variants} from "framer-motion";
 import ServicesCollapsible from "@components/ServicesCollapsible";
 import BaseTypeWriter from "@components/ui/BaseTypeWriter";
+import BenefitsSection from "@components/sections/BenefitsSection";
+import AboutUsSection from "@components/sections/AboutUsSection";
 
 export default function Home() {
-  const [isOpenBenefits, setIsOpenBenefits] = useState(false);
   const [isOpenServices, setIsOpenServices] = useState(false);
-
-  const variants: Variants = {
-    offscreen: {
-      y: "100%",
-      opacity: 0
-    },
-    onscreen: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        bounce: 0.2,
-        duration: 0.5
-      }
-    }
-  };
-
   const [openedService, setOpenedService] = useState<string | null>(null);
 
   return (
@@ -78,59 +62,9 @@ export default function Home() {
       <div className="sm:hidden">
         <BaseSpacer/>
       </div>
-      <BaseTitle id="benefits" title="Benefits of using AI in business"/>
-      <motion.section
-        initial="offscreen"
-        whileInView="onscreen"
-        viewport={{ once: true, amount: 0.5 }}
-        className="base-padding flex justify-end overflow-hidden"
-      >
-        <motion.div
-          variants={variants}
-          className="w-1/2 sm:w-full flex flex-col"
-        >
-          {
-            benefits.slice(0,3).map(item => (
-              <Benefit
-                title={item.title}
-                text={item.text}
-                key={item.title}
-              />
-            ))
-          }
-          <AnimatePresence>
-            {
-              isOpenBenefits && (
-                <motion.div
-                  initial={{opacity: 0, height: 0}}
-                  animate={{opacity: 1, height: 'auto'}}
-                  exit={{opacity: 0, height: 0}}
-                  transition={{duration: .2}}
-                >
-                  {
-                    benefits.slice(3).map(item => (
-                      <Benefit
-                        title={item.title}
-                        text={item.text}
-                        key={item.title}
-                      />
-                    ))
-                  }
-                </motion.div>
-              )
-            }
-          </AnimatePresence>
-          <ShowMoreBtn
-            isOpen={isOpenBenefits}
-            onClick={() => setIsOpenBenefits(!isOpenBenefits)}
-          />
-        </motion.div>
-      </motion.section>
+      <BenefitsSection />
       <BaseSpacer/>
-      <BaseTitle
-        id="about"
-        title="At  HEAPIX, we are AI experts specialising in large language and diffusion models. We harness the power of OpenAI's GPT-3.5, GPT-4, LLaMa 2, Stable Diffusion, Claude, and Falcon, utilising Python, LangChain, HuggingFace, and Pinecone's vector databases. Our skills transform data into insights, optimising processes for smarter and informed decisions. Discover the future with HEAPIX, where artificial intelligence creates excellence."
-      />
+      <AboutUsSection />
       <BaseSpacer/>
       <BaseTitle id="services" title="AI-Powered Business Optimization"/>
       <section className="base-padding !py-0 flex flex-col items-end">
@@ -179,37 +113,6 @@ export default function Home() {
       <BaseSpacer/>
       <section className="px-10 sm:px-0">
         <BaseBanner/>
-      </section>
-      <div className="sm:hidden">
-        <BaseSpacer/>
-      </div>
-      <BaseTitle id="workflow" title="Workflow"/>
-      <section className="base-padding overflow-x-hidden flex flex-col items-center space-y-3 overflow-x-auto max-h-[500px]">
-        {
-          workflowCards.map((card, i) => (
-            <div id={card.id} key={card.id} className="flex items-center w-[740px]">
-              <div className="h-[75px] w-[75px] border border-grey-600 mr-5 grid place-items-center rounded-md">
-                {`${i + 1}/${workflowCards.length}`}
-              </div>
-              <div className="flex flex-col space-y-2">
-                <div className="text-body">{card.title}</div>
-                {
-                  card?.list && (
-                    <ul>
-                      {
-                        card.list.map((item, i) => (
-                          <li key={i} className="list-disc text-callout list-inside">
-                            {item}
-                          </li>
-                        ))
-                      }
-                    </ul>
-                  )
-                }
-              </div>
-            </div>
-          ))
-        }
       </section>
       <BookMeetingBtn/>
     </BaseLayout>

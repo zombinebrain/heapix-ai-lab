@@ -31,6 +31,7 @@ module.exports = {
         '4.5': '1.125rem', //18px
         '7.5': '1.875rem', //30px
         '12.5': '3.125rem', //50px
+        '13.75': '3.438rem', //55px
         '15': '3.75rem', //60px
         '25': '6.25rem', //100px
         '35': '8.75rem', //140px
@@ -40,5 +41,9 @@ module.exports = {
       }
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addVariant }) {
+      addVariant('child', '& > *');
+    }
+  ],
 };
