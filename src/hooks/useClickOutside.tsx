@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 
 export const useClickOutside = (callback: () => void) => {
-  const ref = useRef<Element>(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClick = (event) => {
