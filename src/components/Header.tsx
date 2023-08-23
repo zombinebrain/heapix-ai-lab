@@ -6,6 +6,7 @@ import {useContext, useState} from "react";
 import {scrollIntoView} from "../utils/scrollIntoView";
 import IconCancel from "@icons/IconCancel";
 import {motion, AnimatePresence} from "framer-motion";
+import ContactModal from "@components/ContactModal";
 
 export const navButtons = Object.freeze([
   {
@@ -31,7 +32,6 @@ export const navButtons = Object.freeze([
 ]);
 
 const Header = () => {
-  const { setIsOpenedModal } = useContext(ModalContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleClick = (id: string) => {
@@ -51,6 +51,15 @@ const Header = () => {
     closed: { rotate: 0},
   };
 
+  const {
+    isOpenedModal,
+    setIsOpenedModal
+  } = useContext(ModalContext);
+
+  const handleModalClose = () => {
+    setIsOpenedModal(false);
+  };
+
   return (
     <header className="fixed bg-black top-0 left-0 right-0 flex justify-between items-center h-13.75 base-padding !py-0 border-b border-grey-800 z-50">
       <div>
@@ -62,7 +71,7 @@ const Header = () => {
             <button
               key={btn.id}
               onClick={() => handleClick(btn.id)}
-              className="border-b border-transparent hover:border-lemon col-span-1 transition-colors duration-300 h-[55px]"
+              className="border-b border-transparent hover:border-lemon col-span-1 transition-colors duration-300 h-13.75"
             >
               {btn.name}
             </button>
@@ -89,6 +98,11 @@ const Header = () => {
         {
           isMenuOpen && <MobileMenu onClose={handleMenuToggle} isOpened={isMenuOpen} />
         }
+      </AnimatePresence>
+      <AnimatePresence>
+        {isOpenedModal && (
+          <ContactModal onClose={handleModalClose} />
+        )}
       </AnimatePresence>
     </header>
   );
