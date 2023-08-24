@@ -1,4 +1,3 @@
-import {motion, Variants} from "framer-motion";
 import {benefits} from "../../data/benefits";
 import Benefit from "@components/Benefit";
 import BaseTitle from "@components/ui/BaseTitle";
@@ -9,22 +8,6 @@ import IconTimer from "@icons/benefits/IconTimer";
 import IconIdentity from "@icons/benefits/IconIdentity";
 import IconWallet from "@icons/benefits/IconWallet";
 import IconTestTube from "@icons/benefits/IconTestTube";
-
-const variants: Variants = {
-  offscreen: {
-    y: "100%",
-    opacity: 0
-  },
-  onscreen: {
-    y: 0,
-    opacity: 1,
-    transition: {
-      type: "spring",
-      bounce: 0.2,
-      duration: 0.5
-    }
-  }
-};
 
 const benefitsClasses = {
   automation: 'col-span-4 tablet:col-span-2',
@@ -51,10 +34,7 @@ const BenefitsSection = () => {
   return (
     <>
       <BaseTitle id="benefits" title="Benefits of using AI in business"/>
-      <motion.section
-        initial="offscreen"
-        whileInView="onscreen"
-        viewport={{ once: true, amount: 0.5 }}
+      <section
         className="base-padding base-vertical-grid sm:flex sm:overflow-x-auto sm:child:min-w-[60%] sm:space-x-3.75"
       >
         {
@@ -68,7 +48,7 @@ const BenefitsSection = () => {
             />
           ))
         }
-      </motion.section>
+      </section>
     </>
   );
 };

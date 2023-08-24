@@ -1,43 +1,15 @@
 import Socials from "@components/ui/Socials";
 import BaseTag from "@components/ui/BaseTag";
 import BaseSpacer from "@components/ui/BaseSpacer";
-import BaseTitle from "@components/ui/BaseTitle";
-import {useContext, useState} from "react";
 import BookMeetingBtn from "@components/ui/BookMeetingBtn";
 import BaseLayout from "../layouts/BaseLayout";
 import BaseTypeWriter from "@components/ui/BaseTypeWriter";
 import BenefitsSection from "@components/sections/BenefitsSection";
 import AboutUsSection from "@components/sections/AboutUsSection";
 import ServicesSection from "@components/sections/ServicesSection";
-import {faqCards} from "../data/faq";
-import FaqCollapsible from "@components/FaqCollapsible";
-import Link from "next/link";
-import {ModalContext} from "../contexts/ModalContext";
+import FaqSection from "@components/sections/FaqSection";
 
 export default function Home() {
-  const [openedFaq, setOpenedFaq] = useState<string | null>(null);
-  const {setIsOpenedModal} = useContext(ModalContext);
-
-  const description = (id: string, text: string) => {
-    if (id !== 'team') {
-      return <p className="text-callout">{text}</p>
-    }
-    return (
-      <p className="text-callout">
-        <span>{text}</span>
-        <span>
-          to start collaborating <Link
-          href="https://timate.me/schedules/max/Ai_call"
-          target="_blank"
-          className="text-lemon whitespace-nowrap"
-        >
-          Book a meeting
-        </Link> or <button onClick={() => setIsOpenedModal(true)} className="text-lemon whitespace-nowrap">Contact us</button>
-        </span>
-      </p>
-    );
-  };
-
   return (
     <BaseLayout>
       <section className="flex flex-col items-center pt-25 sm:py-12.5 sm:px-3.75">
@@ -84,21 +56,8 @@ export default function Home() {
       <AboutUsSection />
       <BaseSpacer/>
       <ServicesSection />
-      <BaseTitle id="faq" title="FAQ"/>
-      <section className="flex flex-col">
-          {
-            faqCards.map(card => (
-              <FaqCollapsible
-                openedId={openedFaq}
-                onOpenClick={setOpenedFaq}
-                title={card.title}
-                content={description(card.id, card.description)}
-                key={card.id}
-                id={card.id}
-              />
-            ))
-          }
-      </section>
+      <BaseSpacer/>
+      <FaqSection />
       <BaseSpacer/>
       <BookMeetingBtn/>
     </BaseLayout>
