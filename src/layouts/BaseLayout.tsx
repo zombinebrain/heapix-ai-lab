@@ -16,13 +16,10 @@ const Layout = ({ children }) => {
   };
 
   const isTouchEnabled = () => {
-    return ( 'ontouchstart' in window ) ||
-      ( navigator.maxTouchPoints > 0 ) ||
-      ( navigator.msMaxTouchPoints > 0 );
+    return ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
   };
 
   useEffect(() => {
-    console.log(isTouchEnabled())
     if (!isTouchEnabled()) {
       const cursor = document.getElementById('cursor');
       document.onmousemove = (e) => {
