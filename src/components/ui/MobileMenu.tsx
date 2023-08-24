@@ -42,7 +42,7 @@ const MobileMenu = ({ onClose, isOpened }) => {
       exit="closed"
       variants={variants}
       transition={{duration: .1}}
-      className="z-50 fixed top-13.75 left-0 bg-black h-screen w-screen"
+      className="z-header fixed top-13.75 left-0 bg-black h-screen w-screen"
     >
       <div className="flex flex-col h-[calc(100%-3.438rem)]">
         <div className="flex flex-col">

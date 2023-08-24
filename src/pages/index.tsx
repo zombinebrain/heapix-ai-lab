@@ -2,19 +2,41 @@ import Socials from "@components/ui/Socials";
 import BaseTag from "@components/ui/BaseTag";
 import BaseSpacer from "@components/ui/BaseSpacer";
 import BaseTitle from "@components/ui/BaseTitle";
-import {useState} from "react";
+import {useContext, useState} from "react";
 import BookMeetingBtn from "@components/ui/BookMeetingBtn";
 import BaseLayout from "../layouts/BaseLayout";
-import BaseBanner from "@components/ui/BaseBanner";
 import BaseTypeWriter from "@components/ui/BaseTypeWriter";
 import BenefitsSection from "@components/sections/BenefitsSection";
 import AboutUsSection from "@components/sections/AboutUsSection";
 import ServicesSection from "@components/sections/ServicesSection";
 import {faqCards} from "../data/faq";
 import FaqCollapsible from "@components/FaqCollapsible";
+import Link from "next/link";
+import {ModalContext} from "../contexts/ModalContext";
 
 export default function Home() {
   const [openedFaq, setOpenedFaq] = useState<string | null>(null);
+  const {setIsOpenedModal} = useContext(ModalContext);
+
+  const description = (id: string, text: string) => {
+    if (id !== 'team') {
+      return <p className="text-callout">{text}</p>
+    }
+    return (
+      <p className="text-callout">
+        <span>{text}</span>
+        <span>
+          to start collaborating <Link
+          href="https://timate.me/schedules/max/Ai_call"
+          target="_blank"
+          className="text-lemon"
+        >
+          Book a meeting
+        </Link> or <button onClick={() => setIsOpenedModal(true)} className="text-lemon">Contact us</button>
+        </span>
+      </p>
+    );
+  };
 
   return (
     <BaseLayout>
@@ -70,7 +92,7 @@ export default function Home() {
                 openedId={openedFaq}
                 onOpenClick={setOpenedFaq}
                 title={card.title}
-                text={card.description}
+                content={description(card.id, card.description)}
                 key={card.id}
                 id={card.id}
               />
@@ -78,49 +100,6 @@ export default function Home() {
           }
       </section>
       <BaseSpacer/>
-      {/*<section className="base-padding !py-0 flex flex-col items-end">
-        <motion.div className="w-2/3 tablet:w-5/6 sm:w-full">
-          {
-            Object.entries(servicesCards).slice(0, 9).map(entry => (
-              <ServicesCollapsible
-                openedId={openedService}
-                onOpenClick={setOpenedService}
-                name={entry[0]}
-                content={entry[1]}
-                key={entry[0]}
-              />
-            ))
-          }
-          <AnimatePresence>
-            {
-              isOpenServices && (
-                <motion.div
-                  initial={{opacity: 0, height: 0}}
-                  animate={{opacity: 1, height: 'auto'}}
-                  exit={{opacity: 0, height: 0}}
-                  transition={{duration: .2}}
-                >
-                  {
-                    Object.entries(servicesCards).slice(9).map(entry => (
-                      <ServicesCollapsible
-                        openedId={openedService}
-                        onOpenClick={setOpenedService}
-                        name={entry[0]}
-                        content={entry[1]}
-                        key={entry[0]}
-                      />
-                    ))
-                  }
-                </motion.div>
-              )
-            }
-          </AnimatePresence>
-          <ShowMoreBtn
-            isOpen={isOpenServices}
-            onClick={() => setIsOpenServices(!isOpenServices)}
-          />
-        </motion.div>
-      </section>*/}
       <BookMeetingBtn/>
     </BaseLayout>
   )

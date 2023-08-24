@@ -1,8 +1,9 @@
 import BaseCollapsible from "@components/ui/BaseCollapsible";
+import {ReactNode} from "react";
 
 type FaqCollapsibleProps = {
   title: string,
-  text: string,
+  content: ReactNode,
   onOpenClick: (val: string | null) => void,
   openedId: string | null,
   id: string
@@ -12,7 +13,7 @@ const FaqCollapsible = ({
   id,
   title,
   openedId,
-  text,
+  content,
   onOpenClick
 }: FaqCollapsibleProps) => {
 
@@ -23,7 +24,7 @@ const FaqCollapsible = ({
         onOpenClick={onOpenClick}
         key={id}
         name={title}
-        content={<p className="text-callout">{text}</p>}
+        content={content}
       />
     </div>
   );
