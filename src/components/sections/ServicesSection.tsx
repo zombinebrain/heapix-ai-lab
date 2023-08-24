@@ -8,19 +8,20 @@ import {scrollIntoView} from "../../utils/scrollIntoView";
 import {useClickOutside} from "../../hooks/useClickOutside";
 import BaseSmallTag from "@components/ui/BaseSmallTag";
 import IconCancel from "@icons/IconCancel";
+import useGetCurrentBreakpoint from "../../hooks/useGetCurrentBreakpoint";
 
 const classNames = {
-  [SERVICES_IDS.MANAGEMENT]: 'col-start-1 col-span-4 tablet:col-span-2 sm:col-span-3',
+  [SERVICES_IDS.MANAGEMENT]: 'col-start-1 col-span-4 tablet:col-span-2 sm:col-span-2',
   [SERVICES_IDS.AUTOMATION]: 'col-span-6 col-end-13 tablet:col-span-4 tablet:col-end-auto sm:col-span-3',
-  [SERVICES_IDS.MARKETING]: 'col-span-4 tablet:col-span-2 sm:col-span-3',
+  [SERVICES_IDS.MARKETING]: 'col-span-4 tablet:col-span-2 sm:col-span-2 sm:col-end-4',
   [SERVICES_IDS.DATA_ANALYSIS]: 'col-span-4 tablet:col-span-2 sm:col-span-3',
-  [SERVICES_IDS.CHURN_PREDICTION]: 'col-span-4 tablet:col-span-2 sm:col-span-3',
+  [SERVICES_IDS.CHURN_PREDICTION]: 'col-span-4 tablet:col-span-2 sm:col-span-2',
   [SERVICES_IDS.SERVICE_AUTOMATION]: 'col-span-6 tablet:col-span-4 sm:col-span-3',
-  [SERVICES_IDS.LOGISTICS]: 'col-span-4 col-end-13 tablet:col-span-2 tablet:col-end-auto sm:col-span-3',
+  [SERVICES_IDS.LOGISTICS]: 'col-span-4 col-end-13 tablet:col-span-2 tablet:col-end-auto sm:col-span-2 sm:col-end-4',
   [SERVICES_IDS.SOCIALS_ANALYSIS]: 'col-span-4 tablet:col-span-2 sm:col-span-3',
-  [SERVICES_IDS.FRAUD_DETECTION]: 'col-span-4 tablet:col-span-2 sm:col-span-3',
+  [SERVICES_IDS.FRAUD_DETECTION]: 'col-span-4 tablet:col-span-2 sm:col-span-2',
   [SERVICES_IDS.TREND_FORECASTING]: 'col-span-4 tablet:col-span-2 sm:col-span-3',
-  [SERVICES_IDS.TEXT_RECOGNITION]: 'col-span-6 tablet:col-span-3 sm:col-span-3',
+  [SERVICES_IDS.TEXT_RECOGNITION]: 'col-span-6 tablet:col-span-3 sm:col-span-2 sm:col-end-4',
   [SERVICES_IDS.MEDIA_ANALYSIS]: 'col-span-6 tablet:col-span-3 sm:col-span-3'
 };
 
@@ -34,6 +35,7 @@ const ServicesSection = () => {
   const [isOpenServices, setIsOpenServices] = useState(false);
   const [openedServiceId, setOpenedServiceId] = useState<string | null>(null);
   const modalRef = useClickOutside(() => setIsOpenedModal(false));
+  const { currentBreakpoint } = useGetCurrentBreakpoint();
 
   const openedService = openedServiceId && servicesCards[openedServiceId];
 
@@ -58,13 +60,15 @@ const ServicesSection = () => {
     setIsOpenedModal(false);
   };
 
+  const isMobile = currentBreakpoint === 'sm';
+
   return (
     <>
       <BaseTitle id="services" title="Jump to AI-Powered optimization with HEAPIX"/>
       <section className="base-padding flex flex-col w-full">
         <div className="base-vertical-grid gap-y-22.5 md:gap-y-15 tablet:gap-y-12.5 sm:gap-y-10">
           {
-            Object.entries(servicesCards).slice(0, 5).map(entry => (
+            Object.entries(servicesCards).slice(0, isMobile ? 3 : 5).map(entry => (
               <div
                 onClick={(e) => handleOpenServiceClick(entry[0], e)}
                 className={`group cursor-pointer flex flex-col ${classNames[entry[0]]}`} key={entry[0]}
@@ -78,7 +82,7 @@ const ServicesSection = () => {
           }
           <AnimatePresence>
             {
-              isOpenServices && Object.entries(servicesCards).slice(5).map(entry => (
+              isOpenServices && Object.entries(servicesCards).slice(isMobile ? 3 : 5).map(entry => (
                 <motion.div
                   initial={{opacity: 0, height: 0}}
                   animate={{opacity: 1, height: 'auto'}}
@@ -132,7 +136,7 @@ const ServicesSection = () => {
                     ))
                   }
                 </div>
-                <div className="rounded w-full aspect-[5/3] bg-grey-600"/>
+                <div className="rounded w-full aspect-[4/3] bg-grey-600"/>
                 {
                   openedService.technologies.map(card => (
                     <div className="flex flex-col py-5 sm:py-3.75" key={card.title}>

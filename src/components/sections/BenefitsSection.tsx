@@ -1,9 +1,14 @@
-import {AnimatePresence, motion, Variants} from "framer-motion";
+import {motion, Variants} from "framer-motion";
 import {benefits} from "../../data/benefits";
 import Benefit from "@components/Benefit";
-import ShowMoreBtn from "@components/ui/ShowMoreBtn";
 import BaseTitle from "@components/ui/BaseTitle";
-import BaseSpacer from "@components/ui/BaseSpacer";
+import IconSettings from "@icons/benefits/IconSettings";
+import IconSearch from "@icons/benefits/IconSearch";
+import IconTarget from "@icons/benefits/IconTarget";
+import IconTimer from "@icons/benefits/IconTimer";
+import IconIdentity from "@icons/benefits/IconIdentity";
+import IconWallet from "@icons/benefits/IconWallet";
+import IconTestTube from "@icons/benefits/IconTestTube";
 
 const variants: Variants = {
   offscreen: {
@@ -21,16 +26,27 @@ const variants: Variants = {
   }
 };
 
+const benefitsClasses = {
+  automation: 'col-span-4 tablet:col-span-2',
+  analysis: 'col-span-6 col-end-13 tablet:col-span-3 tablet:col-end-7',
+  accuracy: 'col-start-6 col-span-3 tablet:col-span-2 tablet:col-start-3',
+  speed: 'col-span-3 tablet:col-span-2',
+  personalisation: 'col-start-2 col-span-6 tablet:col-span-4 tablet:col-start-1',
+  cost: 'col-span-2 col-end-13 tablet:col-span-2 tablet:col-end-7',
+  innovation: 'col-start-4 col-span-6 tablet:col-start-2 tablet:col-span-4'
+};
+
+const benefitsIcons = {
+  automation: <IconSettings />,
+  analysis: <IconSearch />,
+  accuracy: <IconTarget />,
+  speed: <IconTimer />,
+  personalisation: <IconIdentity />,
+  cost: <IconWallet />,
+  innovation: <IconTestTube />
+};
+
 const BenefitsSection = () => {
-  const benefitsClasses = {
-    automation: 'col-span-4 tablet:col-span-2',
-    analysis: 'col-span-6 col-end-13 tablet:col-span-3 tablet:col-end-7',
-    accuracy: 'col-start-6 col-span-3 tablet:col-span-2 tablet:col-start-3',
-    speed: 'col-span-3 tablet:col-span-2',
-    personalisation: 'col-start-2 col-span-6 tablet:col-span-4 tablet:col-start-1',
-    cost: 'col-span-2 col-end-13 tablet:col-span-2 tablet:col-end-7',
-    innovation: 'col-start-4 col-span-6 tablet:col-start-2 tablet:col-span-4'
-  };
 
   return (
     <>
@@ -47,6 +63,7 @@ const BenefitsSection = () => {
               key={item.id}
               title={item.title}
               text={item.text}
+              icon={benefitsIcons[item.id]}
               className={benefitsClasses[item.id]}
             />
           ))
