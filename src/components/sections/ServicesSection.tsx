@@ -5,10 +5,9 @@ import {servicesCards} from "../../data/services";
 import {SERVICES_IDS} from "../../models/services";
 import {AnimatePresence, motion} from "framer-motion";
 import {scrollIntoView} from "../../utils/scrollIntoView";
-import {useClickOutside} from "../../hooks/useClickOutside";
-import BaseSmallTag from "@components/ui/BaseSmallTag";
-import IconCancel from "@icons/IconCancel";
 import useGetCurrentBreakpoint from "../../hooks/useGetCurrentBreakpoint";
+import ServicesModal from "@components/services/ServicesModal";
+import ServicesCard from "@components/services/ServicesCard";
 
 const classNames = {
   [SERVICES_IDS.MANAGEMENT]: 'col-start-1 col-span-4 tablet:col-span-2 sm:col-span-2',
@@ -25,17 +24,11 @@ const classNames = {
   [SERVICES_IDS.MEDIA_ANALYSIS]: 'col-span-6 tablet:col-span-3 sm:col-span-3'
 };
 
-const variants = {
-  open: { opacity: 1, y: 0,},
-  closed: { opacity: 1, y: '100%',},
-};
-
 const ServicesSection = () => {
   const [isOpenedModal, setIsOpenedModal] = useState(false);
   const [isOpenServices, setIsOpenServices] = useState(false);
   const [openedServiceId, setOpenedServiceId] = useState<string | null>(null);
-  const modalRef = useClickOutside(() => setIsOpenedModal(false));
-  const { currentBreakpoint } = useGetCurrentBreakpoint();
+  const {currentBreakpoint} = useGetCurrentBreakpoint();
 
   const openedService = openedServiceId && servicesCards[openedServiceId];
 
@@ -56,10 +49,6 @@ const ServicesSection = () => {
     setIsOpenedModal(true);
   };
 
-  const handleModalCloseClick = () => {
-    setIsOpenedModal(false);
-  };
-
   const isMobile = currentBreakpoint === 'sm';
 
   return (
@@ -69,35 +58,24 @@ const ServicesSection = () => {
         <div className="base-vertical-grid gap-y-22.5 md:gap-y-15 tablet:gap-y-12.5 sm:gap-y-10">
           {
             Object.entries(servicesCards).slice(0, isMobile ? 3 : 5).map(entry => (
-              <div
+              <ServicesCard
+                className={classNames[entry[0]]}
+                title={entry[0]}
+                key={entry[0]}
                 onClick={(e) => handleOpenServiceClick(entry[0], e)}
-                className={`group cursor-pointer flex flex-col ${classNames[entry[0]]}`} key={entry[0]}
-              >
-                <div className="bg-grey-800 rounded aspect-[4/3] mb-2.5 w-full"/>
-                <div className="text-body group-hover:text-lemon transition-colors duration-300">
-                  {entry[0]}
-                </div>
-              </div>
+              />
             ))
           }
           <AnimatePresence>
             {
               isOpenServices && Object.entries(servicesCards).slice(isMobile ? 3 : 5).map(entry => (
-                <motion.div
-                  initial={{opacity: 0, height: 0}}
-                  animate={{opacity: 1, height: 'auto'}}
-                  exit={{opacity: 0, height: 0}}
-                  transition={{duration: .2}}
+                <ServicesCard
+                  className={classNames[entry[0]]}
+                  title={entry[0]}
+                  key={entry[0]}
                   onClick={(e) => handleOpenServiceClick(entry[0], e)}
-                  className={`group cursor-pointer flex flex-col ${classNames[entry[0]]}`} key={entry[0]}
-                >
-                  <div className="bg-grey-800 rounded aspect-[4/3] mb-2.5 w-full"/>
-                  <div className="text-body group-hover:text-lemon transition-colors duration-300">
-                    {entry[0]}
-                  </div>
-                </motion.div>
+                />
               ))
-
             }
           </AnimatePresence>
         </div>
@@ -108,46 +86,13 @@ const ServicesSection = () => {
       </section>
       <AnimatePresence>
         {isOpenedModal && openedService && (
-          <>
-            <div className="sm:hidden top-0 left-0 fixed w-screen h-screen bg-black opacity-50 flex justify-end z-overlay" />
-            <motion.div
-              ref={modalRef}
-              initial="closed"
-              animate={isOpenedModal ? "open" : "closed"}
-              exit="closed"
-              variants={variants}
-              transition={{duration: .1}}
-              className="top-0 right-0 fixed h-screen w-1/2 sm:w-screen p-5 flex flex-col bg-black z-9999 rounded-xl border border-grey-600"
-            >
-              <div className="relative">
-                <h2 className="py-5 sm:py-3.75 pr-5">{openedServiceId}</h2>
-                <button
-                  onClick={handleModalCloseClick}
-                  className="absolute top-0 right-0 w-6 h-6"
-                >
-                  <IconCancel/>
-                </button>
-              </div>
-              <div className="overflow-y-auto ">
-                <div className="flex flex-wrap items-center py-5 sm:py-3.75 child:mr-2.5 -mt-2.5 child:mt-2.5">
-                  {
-                    openedService.tags.map(tag => (
-                      <BaseSmallTag text={tag} key={tag}/>
-                    ))
-                  }
-                </div>
-                <div className="rounded w-full aspect-[4/3] bg-grey-600"/>
-                {
-                  openedService.technologies.map(card => (
-                    <div className="flex flex-col py-5 sm:py-3.75" key={card.title}>
-                      <div className="text-body">{card.title}</div>
-                      <p className="text-callout">{card.text}</p>
-                    </div>
-                  ))
-                }
-              </div>
-            </motion.div>
-          </>
+          <ServicesModal
+            onClose={() => setIsOpenedModal(false)}
+            isOpen={isOpenedModal}
+            title={openedServiceId}
+            tags={openedService.tags}
+            technologies={openedService.technologies}
+          />
         )}
       </AnimatePresence>
     </>
