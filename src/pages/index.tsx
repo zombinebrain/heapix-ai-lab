@@ -29,10 +29,10 @@ export default function Home() {
           to start collaborating <Link
           href="https://timate.me/schedules/max/Ai_call"
           target="_blank"
-          className="text-lemon"
+          className="text-lemon whitespace-nowrap"
         >
           Book a meeting
-        </Link> or <button onClick={() => setIsOpenedModal(true)} className="text-lemon">Contact us</button>
+        </Link> or <button onClick={() => setIsOpenedModal(true)} className="text-lemon whitespace-nowrap">Contact us</button>
         </span>
       </p>
     );
