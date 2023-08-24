@@ -10,16 +10,12 @@ import IconPlatformKeras from "@icons/platform/IconPlatformKeras";
 import IconPlatformClaude from "@icons/platform/IconPlatformClaude";
 import {
   useScroll,
-  useSpring,
   useTransform,
-  motion,
-  useMotionValue,
-  useVelocity,
-  wrap,
-  useAnimationFrame, Variants, useInView
+  motion, cubicBezier, useMotionValue,
 } from "framer-motion";
-import {useCallback, useEffect, useLayoutEffect, useRef, useState} from "react";
 import useGetCurrentBreakpoint from "../../hooks/useGetCurrentBreakpoint";
+import {useRef} from "react";
+import useWindowDimensions from "../../hooks/useWindowDimensions";
 
 const AboutUsSection = () => {
   const icons = [
@@ -34,14 +30,15 @@ const AboutUsSection = () => {
     <IconPlatformAllenNLP />,
     <IconPlatformKeras />
   ];
-
   const { scrollYProgress } = useScroll();
   const { currentBreakpoint } = useGetCurrentBreakpoint();
 
-  const moveX = useTransform(
+  const isMobile = currentBreakpoint === 'sm';
+
+  const x = useTransform(
     scrollYProgress,
     [0, 1],
-    currentBreakpoint === 'sm' ? ["100%", "-170%"] : ["180%", "-170%"]
+    isMobile ? ["100%", "-220%"] : ["100%", "-110%"]
   );
 
   return (
@@ -53,20 +50,20 @@ const AboutUsSection = () => {
         <Paragraph
           text="At  HEAPIX, we are AI experts specialising in large language and diffusion models."
           className="col-span-4 tablet:col-span-3"
-          margin={"-25% 0px -25% 0px"}
+          margin={isMobile ? '-155px 0px -55px' : '-200px 0px -100px'}
         />
         <Paragraph
           text="We harness the power of OpenAI's GPT-3.5, GPT-4, LLaMa 2, Stable Diffusion, Claude, and Falcon, utilising Python, LangChain, HuggingFace, and Pinecone's vector databases."
           className="row-start-2 col-start-5 col-span-full tablet:col-start-2"
-          margin={"0px 0px -30% 0px"}
+          margin={isMobile ? '-55px 0px -55px' : '-100px 0px -250px'}
         />
         <motion.div
-          style={{ x: moveX }}
+          style={{ x }}
           className="col-span-full flex space-x-5 sm:space-x-1.5"
         >
           {
             icons.map((icon, i) => (
-              <div key={i} className="min-w-[14vw] max-w-[14vw] min-h-[14vw] max-h-[14vw] p-[5vw] sm:p-[3vw] border border-grey-600 rounded-full">
+              <div key={i} className="min-w-[12vw] max-w-[12vw] min-h-[12vw] max-h-[12vw] sm:min-w-[14vw] sm:max-w-[14vw] sm:min-h-[14vw] sm:max-h-[14vw] p-[3vw] border border-grey-600 rounded-full">
                 { icon }
               </div>
             ))
@@ -75,7 +72,7 @@ const AboutUsSection = () => {
         <Paragraph
           text="We transform data into insights, optimising processes for smarter and informed decisions."
           className="text-grey-400 col-span-8 tablet:col-span-full"
-          margin={"-25% 0px -25% 0px"}
+          margin={isMobile ? '-55px 0px -55px' : '0px 0px -200px'}
         />
       </motion.section>
     </>
@@ -87,25 +84,21 @@ export default AboutUsSection;
 type ParagraphProps = {
   className: string,
   text: string,
-  margin?: string
+  margin: string
+};
+
+const textVariants = {
+  focused: { color: '#FFFFFF', transition: { duration: .1 } },
+  unfocused: { color: '#82858C' }
 };
 
 const Paragraph = ({ className = '', text = '', margin }: ParagraphProps) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref,
-    {
-      once: false,
-      amount: 0.9,
-      margin
-    });
-
   return (
     <motion.p
-      ref={ref}
-      style={{
-        color: isInView ? 'white' : '#82858C'
-      }}
-      transition={{ duration: .1 }}
+      viewport={{ once: false, amount: "all", margin }}
+      variants={textVariants}
+      initial="unfocused"
+      whileInView="focused"
       className={className}
     >
       { text }

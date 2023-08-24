@@ -126,23 +126,32 @@
 
 :root {
   --primary: #82858C;
-  --secondary: #E4E5E7;
 }
 
 /* Scrollbar styles */
 /* Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--primary) var(--secondary);
+  scrollbar-color: var(--primary) transparent;
 }
 
 /* Chrome, Edge, and Safari */
-*::-webkit-scrollbar {
-  width: 12px;
+::-webkit-scrollbar {
+  height: 3px;
+  width: 3px;
 }
-
-*::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--primary);
+  border-radius: 10px;
+  border: transparent;
+}
+::-webkit-scrollbar-thumb:horizontal{
   background: var(--primary);
+  border-radius: 10px;
+  border: transparent;
 }
 
 /*style type animation cursor*/
