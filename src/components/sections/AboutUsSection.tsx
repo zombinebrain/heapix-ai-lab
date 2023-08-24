@@ -1,13 +1,13 @@
-import IconPlatformOpenAI from "@icons/IconPlatformOpenAI";
-import IconPlatformMeta from "@icons/IconPlatformMeta";
-import IconPlatformPinecone from "@icons/IconPlatformPinecone";
-import IconPlatformPython from "@icons/IconPlatformPython";
-import IconPlatformAllenNLP from "@icons/IconPlatformAllenNLP";
-import IconPlatformFalcon from "@icons/IconPlatformFalcon";
-import IconPlatformTensorflow from "@icons/IconPlatformTensorflow";
-import IconPlatformPyTorch from "@icons/IconPlatformPyTorch";
-import IconPlatformKeras from "@icons/IconPlatformKeras";
-import IconPlatformClaude from "@icons/IconPlatformClaude";
+import IconPlatformOpenAI from "@icons/platform/IconPlatformOpenAI";
+import IconPlatformMeta from "@icons/platform/IconPlatformMeta";
+import IconPlatformPinecone from "@icons/platform/IconPlatformPinecone";
+import IconPlatformPython from "@icons/platform/IconPlatformPython";
+import IconPlatformAllenNLP from "@icons/platform/IconPlatformAllenNLP";
+import IconPlatformFalcon from "@icons/platform/IconPlatformFalcon";
+import IconPlatformTensorflow from "@icons/platform/IconPlatformTensorflow";
+import IconPlatformPyTorch from "@icons/platform/IconPlatformPyTorch";
+import IconPlatformKeras from "@icons/platform/IconPlatformKeras";
+import IconPlatformClaude from "@icons/platform/IconPlatformClaude";
 import {
   useScroll,
   useSpring,

@@ -1,4 +1,4 @@
-import {useLayoutEffect, useMemo, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 
 const TAILWIND_BREAKPOINTS = {
   sm: 600,
@@ -19,7 +19,7 @@ export default function useGetCurrentBreakpoint() {
     });
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
