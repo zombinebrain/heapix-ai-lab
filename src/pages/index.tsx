@@ -19,7 +19,7 @@ export default function Home() {
   return (
     <BaseLayout>
       <section className="flex flex-col items-center pt-25 sm:py-12.5 sm:px-3.75">
-        <BaseTag text="Created in a collaboration with AI" className="hidden sm:block sm:mb-7.5"/>
+        <BaseTag text="Created in a collaboration with AI" className="hidden sm:block sm:mb-7.5 whitespace-nowrap"/>
         <div className="font-title w-full text-center pb-35 sm:pb-12.5 max-w-[50%] md:max-w-[65%] tablet:max-w-[80%] sm:max-w-full">
           <h2 className="min-h-[2.5em] sm:min-h-[3.8em]">
             <span>HEAPIX AI Lab: </span>
