@@ -8,14 +8,8 @@ import IconPlatformTensorflow from "@icons/platform/IconPlatformTensorflow";
 import IconPlatformPyTorch from "@icons/platform/IconPlatformPyTorch";
 import IconPlatformKeras from "@icons/platform/IconPlatformKeras";
 import IconPlatformClaude from "@icons/platform/IconPlatformClaude";
-import {
-  useScroll,
-  useTransform,
-  motion, cubicBezier, useMotionValue,
-} from "framer-motion";
+import {useScroll, useTransform, motion} from "framer-motion";
 import useGetCurrentBreakpoint from "../../hooks/useGetCurrentBreakpoint";
-import {useRef} from "react";
-import useWindowDimensions from "../../hooks/useWindowDimensions";
 
 const AboutUsSection = () => {
   const icons = [
@@ -31,14 +25,12 @@ const AboutUsSection = () => {
     <IconPlatformKeras />
   ];
   const { scrollYProgress } = useScroll();
-  const { currentBreakpoint } = useGetCurrentBreakpoint();
-
-  const isMobile = currentBreakpoint === 'sm';
+  const { isMobileBreakpoint } = useGetCurrentBreakpoint();
 
   const x = useTransform(
     scrollYProgress,
     [0, 1],
-    isMobile ? ["100%", "-220%"] : ["100%", "-110%"]
+    isMobileBreakpoint ? ["100%", "-220%"] : ["100%", "-110%"]
   );
 
   return (
@@ -50,12 +42,12 @@ const AboutUsSection = () => {
         <Paragraph
           text="At  HEAPIX, we are AI experts specialising in large language and diffusion models."
           className="col-span-4 tablet:col-span-3"
-          margin={isMobile ? '-155px 0px -55px' : '-200px 0px -100px'}
+          margin={isMobileBreakpoint ? '-155px 0px -55px' : '-200px 0px -100px'}
         />
         <Paragraph
           text="We harness the power of OpenAI's GPT-3.5, GPT-4, LLaMa 2, Stable Diffusion, Claude, and Falcon, utilising Python, LangChain, HuggingFace, and Pinecone's vector databases."
           className="row-start-2 col-start-5 col-span-full tablet:col-start-2"
-          margin={isMobile ? '-55px 0px -55px' : '-100px 0px -250px'}
+          margin={isMobileBreakpoint ? '-55px 0px -55px' : '-100px 0px -250px'}
         />
         <motion.div
           style={{ x }}
@@ -72,7 +64,7 @@ const AboutUsSection = () => {
         <Paragraph
           text="We transform data into insights, optimising processes for smarter and informed decisions."
           className="text-grey-400 col-span-8 tablet:col-span-full"
-          margin={isMobile ? '-55px 0px -55px' : '0px 0px -200px'}
+          margin={isMobileBreakpoint ? '-55px 0px -55px' : '0px 0px -200px'}
         />
       </motion.section>
     </>

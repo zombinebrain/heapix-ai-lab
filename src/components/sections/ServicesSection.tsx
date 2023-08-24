@@ -28,7 +28,7 @@ const ServicesSection = () => {
   const [isOpenedModal, setIsOpenedModal] = useState(false);
   const [isOpenServices, setIsOpenServices] = useState(false);
   const [openedServiceId, setOpenedServiceId] = useState<string | null>(null);
-  const {currentBreakpoint} = useGetCurrentBreakpoint();
+  const {isMobileBreakpoint} = useGetCurrentBreakpoint();
 
   const openedService = openedServiceId && servicesCards[openedServiceId];
 
@@ -49,15 +49,13 @@ const ServicesSection = () => {
     setIsOpenedModal(true);
   };
 
-  const isMobile = currentBreakpoint === 'sm';
-
   return (
     <>
       <BaseTitle id="services" title="Jump to AI-Powered optimization with HEAPIX"/>
       <section className="base-padding flex flex-col w-full">
         <div className="base-vertical-grid gap-y-22.5 md:gap-y-15 tablet:gap-y-12.5 sm:gap-y-10">
           {
-            Object.entries(servicesCards).slice(0, isMobile ? 3 : 5).map(entry => (
+            Object.entries(servicesCards).slice(0, isMobileBreakpoint ? 3 : 5).map(entry => (
               <ServicesCard
                 className={classNames[entry[0]]}
                 title={entry[0]}
@@ -68,7 +66,7 @@ const ServicesSection = () => {
           }
           <AnimatePresence>
             {
-              isOpenServices && Object.entries(servicesCards).slice(isMobile ? 3 : 5).map(entry => (
+              isOpenServices && Object.entries(servicesCards).slice(isMobileBreakpoint ? 3 : 5).map(entry => (
                 <ServicesCard
                   className={classNames[entry[0]]}
                   title={entry[0]}
