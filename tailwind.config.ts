@@ -38,6 +38,7 @@ module.exports = {
         '35': '8.75rem', //140px
       },
       zIndex: {
+        'header': 50,
         'overlay': 999,
         '9999': 9999
       }
