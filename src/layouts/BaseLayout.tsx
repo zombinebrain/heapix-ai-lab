@@ -15,14 +15,23 @@ const Layout = ({ children }) => {
     setIsOpenedModal(false);
   };
 
+  const isTouchEnabled = () => {
+    return ( 'ontouchstart' in window ) ||
+      ( navigator.maxTouchPoints > 0 ) ||
+      ( navigator.msMaxTouchPoints > 0 );
+  };
+
   useEffect(() => {
-    const cursor = document.getElementById('cursor');
-    document.onmousemove = (e) => {
-      cursor.style.left = (e.pageX - 60) + 'px';
-      cursor.style.top = (e.pageY - 60) + 'px';
-      cursor.style.display = 'block';
+    console.log(isTouchEnabled())
+    if (!isTouchEnabled()) {
+      const cursor = document.getElementById('cursor');
+      document.onmousemove = (e) => {
+        cursor.style.left = (e.pageX - 60) + 'px';
+        cursor.style.top = (e.pageY - 60) + 'px';
+        cursor.style.display = 'block';
+      }
     }
-  }, []);
+  }, [isTouchEnabled]);
 
   return (
     <div className="relative overflow-hidden">
