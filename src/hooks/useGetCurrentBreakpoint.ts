@@ -15,7 +15,7 @@ export default function useGetCurrentBreakpoint() {
   const handleResize = () => {
     setDimensions({
       width: window.innerWidth,
-      height: window.innerHeight,
+      height: window.innerHeight
     });
   };
 
@@ -30,9 +30,7 @@ export default function useGetCurrentBreakpoint() {
       TAILWIND_BREAKPOINTS[key as keyof typeof TAILWIND_BREAKPOINTS] >= dimensions.width
     ), [dimensions]);
 
-  const mobileBreakpoints = ['sm', 'tablet'];
-
-  const isMobileBreakpoint = mobileBreakpoints.includes(currentBreakpoint);
+  const isMobileBreakpoint = currentBreakpoint === 'sm';
 
   return { currentBreakpoint, dimensions, isMobileBreakpoint };
 }
