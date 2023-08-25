@@ -3,7 +3,7 @@ import ShowMoreBtn from "@components/ui/ShowMoreBtn";
 import {useState, MouseEvent} from "react";
 import {servicesCards} from "../../data/services";
 import {SERVICES_IDS} from "../../models/services";
-import {AnimatePresence, motion} from "framer-motion";
+import {AnimatePresence} from "framer-motion";
 import {scrollIntoView} from "../../utils/scrollIntoView";
 import useGetCurrentBreakpoint from "../../hooks/useGetCurrentBreakpoint";
 import ServicesModal from "@components/services/ServicesModal";
