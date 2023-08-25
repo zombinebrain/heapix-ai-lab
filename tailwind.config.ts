@@ -41,6 +41,16 @@ module.exports = {
         'header': 50,
         'overlay': 999,
         '9999': 9999
+      },
+      keyframes: {
+        'cursor-click': {
+          '0%, 100%': { transform: 'scale(1)' },
+          '50%': { transform: 'scale(.3)', rotate: '360deg' }
+        }
+      },
+      animation: {
+        'slow-spin': 'spin 5s linear infinite',
+        'cursor-click': 'cursor-click .5s forwards'
       }
     },
   },

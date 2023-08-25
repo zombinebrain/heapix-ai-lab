@@ -31,7 +31,7 @@ const BaseInput = ({
         isTextArea
           ?
           <textarea
-            rows={3}
+            rows={4}
             id={id}
             className={`${!!value ? 'text-white' : 'text-grey-400'} resize-none bg-black outline-none focus:text-white`}
             value={value}
