@@ -8,8 +8,10 @@ import IconPlatformTensorflow from "@icons/platform/IconPlatformTensorflow";
 import IconPlatformPyTorch from "@icons/platform/IconPlatformPyTorch";
 import IconPlatformKeras from "@icons/platform/IconPlatformKeras";
 import IconPlatformClaude from "@icons/platform/IconPlatformClaude";
-import {useScroll, useTransform, motion} from "framer-motion";
+import {useScroll, useTransform, motion, useInView} from "framer-motion";
 import useGetCurrentBreakpoint from "../../hooks/useGetCurrentBreakpoint";
+import {RefObject, useEffect, useRef, useState} from "react";
+import {useElementViewportPosition} from "../../hooks/useElementViewportPosition";
 
 const AboutUsSection = () => {
   const icons = [
@@ -24,19 +26,39 @@ const AboutUsSection = () => {
     <IconPlatformAllenNLP />,
     <IconPlatformKeras />
   ];
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+  const [iconWidth, setIconWidth]  = useState(0);
+  const [iconsOnScreen, setIconsOnScreen] = useState(0);
+  const { position } = useElementViewportPosition(wrapperRef);
   const { scrollYProgress } = useScroll();
-  const { isMobileBreakpoint } = useGetCurrentBreakpoint();
+  const { isMobileBreakpoint, dimensions } = useGetCurrentBreakpoint();
+
+  const mobileSpaceBetweenIcons = isMobileBreakpoint ? 6 : 20;
+
+  useEffect(() => {
+    if (!wrapperRef || !wrapperRef.current) return;
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    const icon = document.getElementById('icon-0');
+    setIconWidth(icon.offsetWidth);
+    const wrapperWidth = wrapperRef.current.offsetWidth;
+    const computedStyle = getComputedStyle(wrapperRef.current);
+    const paddingX = parseFloat(computedStyle.paddingLeft) + parseFloat(computedStyle.paddingRight);
+    const wrapperWidthWithoutPadding = wrapperWidth - paddingX - scrollbarWidth;
+    setIconsOnScreen(wrapperWidthWithoutPadding / (iconWidth + mobileSpaceBetweenIcons));
+  }, [position, iconWidth, iconsOnScreen, dimensions.width, wrapperRef]);
 
   const x = useTransform(
     scrollYProgress,
-    [0, 1],
-    isMobileBreakpoint ? ["100%", "-220%"] : ["100%", "-110%"]
+    position,
+    [0, -(iconWidth * (10 - iconsOnScreen) + mobileSpaceBetweenIcons * (9 - iconsOnScreen))],
+    { clamp: true }
   );
 
   return (
     <>
       <motion.section
         id="about"
+        ref={wrapperRef}
         className="overflow-hidden text-title base-padding base-vertical-grid gap-y-7.5 sm:flex sm:flex-col"
       >
         <Paragraph
@@ -55,7 +77,7 @@ const AboutUsSection = () => {
         >
           {
             icons.map((icon, i) => (
-              <div key={i} className="min-w-[12vw] max-w-[12vw] min-h-[12vw] max-h-[12vw] sm:min-w-[14vw] sm:max-w-[14vw] sm:min-h-[14vw] sm:max-h-[14vw] p-[3vw] border border-grey-600 rounded-full">
+              <div id={`icon-${i}`} key={i} className="min-w-[12vw] max-w-[12vw] min-h-[12vw] max-h-[12vw] sm:min-w-[14vw] sm:max-w-[14vw] sm:min-h-[14vw] sm:max-h-[14vw] p-[3vw] border border-grey-600 rounded-full">
                 { icon }
               </div>
             ))
