@@ -1,4 +1,4 @@
-import { createContext, Dispatch, SetStateAction, useState } from 'react';
+import {createContext, Dispatch, ReactNode, SetStateAction, useState} from 'react';
 
 type ModalContextProps = {
   isOpenedModal: boolean,
@@ -10,7 +10,7 @@ export const ModalContext = createContext<ModalContextProps>({
   setIsOpenedModal: () => {}
 });
 
-export function ModalContextProvider({ children }) {
+export function ModalContextProvider({ children }: { children: ReactNode }) {
   const [isOpenedModal, setIsOpenedModal] = useState(false);
 
   return (

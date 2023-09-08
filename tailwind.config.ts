@@ -40,7 +40,8 @@ module.exports = {
       zIndex: {
         'header': 50,
         'overlay': 999,
-        '9999': 9999
+        '9999': 9999,
+        'max': 99999
       },
       keyframes: {
         'cursor-click': {
@@ -55,7 +56,7 @@ module.exports = {
     },
   },
   plugins: [
-    function ({ addVariant }) {
+    function ({ addVariant }: { addVariant: any }) {
       addVariant('child', '& > *');
     }
   ],

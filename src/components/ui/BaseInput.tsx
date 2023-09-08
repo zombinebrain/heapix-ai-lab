@@ -1,9 +1,9 @@
-import {ChangeEvent} from 'react';
+import {ChangeEvent, KeyboardEvent} from 'react';
 
 type BaseInputProps = {
   value: string,
   onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void,
-  onKeyDown: (e) => void,
+  onKeyDown: (e: KeyboardEvent<HTMLTextAreaElement>) => void,
   label: string,
   id: string,
   type?: string
@@ -20,7 +20,8 @@ const BaseInput = ({
   type = "text",
   isTextArea = false,
   required = false,
-  isError = false
+  isError = false,
+  onKeyDown
 }: BaseInputProps) => {
   return (
     <div className="relative group text-grey-400 hover:text-white flex flex-col base-padding">
@@ -38,6 +39,7 @@ const BaseInput = ({
             onChange={onChange}
             required={required}
             spellCheck="false"
+            onKeyDown={(e) => onKeyDown(e)}
           />
           :
           <input

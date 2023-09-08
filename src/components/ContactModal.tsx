@@ -2,12 +2,12 @@ import BaseTitle from "@components/ui/BaseTitle";
 import IconCancel from "@icons/IconCancel";
 import Socials from "@components/ui/Socials";
 import Modal from "@components/ui/BaseModal";
-import {ChangeEvent, FormEvent, useRef, useState} from "react";
+import {ChangeEvent, FormEvent, KeyboardEvent, useRef, useState} from "react";
 import BaseInput from "@components/ui/BaseInput";
 import AvatarWithName from "@components/ui/AvatarWithName";
 import BookMeetingBtn from "@components/ui/BookMeetingBtn";
 import ReCAPTCHA from "react-google-recaptcha";
-import {isRequired, isValidEmail, ValidationError, validator} from "../utils/validate";
+import {isRequired, isValidEmail, ValidationFunction, validator} from "../utils/validate";
 
 type ContactModalProps = {
   onClose: () => void;
@@ -32,11 +32,15 @@ const initialFormData = Object.freeze({
   message: ''
 });
 
+type InputFieldsRulesType = {
+  [K: string]: Array<ValidationFunction>
+};
+
 const inputFieldsRules = {
   name: [(v: string) => isRequired(v)],
   email: [(v: string) => isRequired(v), (v: string) => isValidEmail(v)],
   message: [(v: string) => isRequired(v)]
-}
+} as InputFieldsRulesType;
 
 const inputFields = Object.freeze<inputFieldsType[]>([
   {
@@ -64,14 +68,17 @@ const ContactModal = ({
     email: [],
     message: []
   });
-  const recaptchaRef = useRef<ReCAPTCHA>(null);
+  const recaptchaRef = useRef<ReCAPTCHA | null>(null);
 
-  const isErrorField = (id: string) => formDataErrors[id].length;
-  const isErrorForm = Object.values(formDataErrors).some((value: Array<ValidationError>) => !!value.length);
+  const isErrorField = (id: string) => !!formDataErrors[id as keyof typeof formDataErrors].length;
+  //const isErrorForm = Object.values(formDataErrors).some((value: Array<ValidationError>) => !!value.length);
   const validate = () => {
     let isError = false;
     Object.keys(formData).forEach(key => {
-      const res = Array.from(validator(formData[key], inputFieldsRules[key]));
+      const res = Array.from(validator(
+        formData[key as keyof FormDataType],
+        inputFieldsRules[key as keyof InputFieldsRulesType])
+      );
       if (!isError) {
         isError = !!res.length;
       }
@@ -83,11 +90,11 @@ const ContactModal = ({
     return isError;
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = (e: FormEvent | KeyboardEvent) => {
     e.preventDefault();
     const isError = validate();
     if (!isError) {
-      recaptchaRef.current.execute();
+      recaptchaRef.current?.execute();
     }
   };
 
@@ -103,19 +110,17 @@ const ContactModal = ({
     }))
   };
 
-  const handleKeyDown = (e) => {
-    if (e.keyCode === 13 && !e.shiftKey) {
+  const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.code === 'Enter' && !e.shiftKey) {
       handleSubmit(e);
     }
   };
 
-  const onReCAPTCHAChange = async (captchaCode) => {
-    if(!captchaCode) {
-      return;
-    }
+  const onReCAPTCHAChange = async (captchaCode: string | null) => {
+    if(!captchaCode) return;
     await console.log({...formData});
     setFormData({...initialFormData});
-    recaptchaRef.current.reset();
+    recaptchaRef.current?.reset();
   }
 
   return (
@@ -143,14 +148,14 @@ const ContactModal = ({
               inputFields.map(field => (
                   <BaseInput
                     key={field.id}
-                    value={formData[field.id]}
+                    value={formData[field.id as keyof FormDataType]}
                     onChange={handleChange}
                     label={field.label}
                     id={field.id}
                     isError={isErrorField(field.id)}
-                    type={field.type}
-                    isTextArea={field.isTextArea}
-                    onKeyDown={field.isTextArea && handleKeyDown}
+                    type={field.type!}
+                    isTextArea={field.isTextArea!}
+                    onKeyDown={handleKeyDown}
                     required
                   />
                 )
@@ -159,7 +164,7 @@ const ContactModal = ({
             <ReCAPTCHA
               ref={recaptchaRef}
               size="invisible"
-              sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+              sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
               onChange={onReCAPTCHAChange}
             />
             <button
