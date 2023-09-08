@@ -11,13 +11,7 @@ import FaqSection from "@components/sections/FaqSection";
 import useGetCurrentBreakpoint from "../hooks/useGetCurrentBreakpoint";
 
 export default function Home() {
-  const {isMobileBreakpoint, dimensions} = useGetCurrentBreakpoint();
-
-  const videoSource = () => {
-    if (isMobileBreakpoint) return "/banner-video-compressed-mobile.mp4";
-    if (dimensions.width > 1200) return "/banner-video.mp4";
-    return "/banner-video-compressed.mp4";
-  };
+  const {isMobileBreakpoint} = useGetCurrentBreakpoint();
 
   return (
     <BaseLayout>
@@ -46,7 +40,7 @@ export default function Home() {
       <section className="px-10 tablet:px-5 sm:px-0">
         <video className="w-full" autoPlay muted playsInline loop>
           <source
-            src={videoSource()}
+            src={isMobileBreakpoint ? "/banner-video-compressed-mobile.mp4" : "/banner-video-compressed.mp4"}
             type="video/mp4"
           />
           Sorry, your browser doesn't support videos.
