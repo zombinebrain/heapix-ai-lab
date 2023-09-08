@@ -2,6 +2,7 @@ import '@styles/global.css';
 import { Manrope } from 'next/font/google';
 import Head from "next/head";
 import {ModalContextProvider} from "../contexts/ModalContext";
+import {AppProps} from "next/app";
 
 const manrope = Manrope({
   subsets: ['latin'],
@@ -12,7 +13,7 @@ const manrope = Manrope({
 const App = ({
  Component,
  pageProps
-}) => {
+}: AppProps) => {
   return (
     <ModalContextProvider>
       <div className={`${manrope.variable} font-sans`}>

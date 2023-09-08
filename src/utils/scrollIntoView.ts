@@ -2,6 +2,8 @@
 
 export const scrollIntoView = (id: string) => {
   const target = document.getElementById(id);
+  if (!target) return;
+
   const pos = target.style.position;
   const top = target.style.top;
   target.style.position = 'relative';

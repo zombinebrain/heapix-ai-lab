@@ -1,4 +1,4 @@
-import React, { useRef, useContext } from "react";
+import {useRef, useContext, ReactNode, MouseEvent} from "react";
 import { createPortal } from "react-dom";
 import { ModalContext } from "../../contexts/ModalContext";
 import { motion } from "framer-motion";
@@ -8,11 +8,11 @@ const variants = {
   closed: { opacity: 1, y: '100%',},
 };
 
-function Modal({children}) {
+function Modal({ children }: { children: ReactNode }) {
   const { isOpenedModal, setIsOpenedModal } = useContext(ModalContext);
   const modalRef = useRef<HTMLDivElement | null>(null);
 
-  const closeModal = (e) => {
+  const closeModal = (e: MouseEvent) => {
     if (modalRef.current === e.target) {
       setIsOpenedModal(false);
     }
@@ -31,7 +31,7 @@ function Modal({children}) {
     >
       {children}
     </motion.div>,
-    document.getElementById("modal")
+    document.getElementById("modal")!
   );
 }
 

@@ -30,7 +30,6 @@ const benefitsIcons = {
 };
 
 const BenefitsSection = () => {
-
   return (
     <>
       <BaseTitle id="benefits" title="Benefits of using AI in business"/>
@@ -43,8 +42,8 @@ const BenefitsSection = () => {
               key={item.id}
               title={item.title}
               text={item.text}
-              icon={benefitsIcons[item.id]}
-              className={benefitsClasses[item.id]}
+              icon={benefitsIcons[item.id as keyof typeof benefitsClasses]}
+              className={benefitsClasses[item.id as keyof typeof benefitsClasses]}
             />
           ))
         }

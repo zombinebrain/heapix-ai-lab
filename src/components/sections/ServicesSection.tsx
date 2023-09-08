@@ -2,7 +2,7 @@ import BaseTitle from "@components/ui/BaseTitle";
 import ShowMoreBtn from "@components/ui/ShowMoreBtn";
 import {useState, MouseEvent} from "react";
 import {servicesCards} from "../../data/services";
-import {SERVICES_IDS} from "../../models/services";
+import {SERVICES_IDS, ServicesCardsType} from "../../models/services";
 import {AnimatePresence} from "framer-motion";
 import {scrollIntoView} from "../../utils/scrollIntoView";
 import useGetCurrentBreakpoint from "../../hooks/useGetCurrentBreakpoint";
@@ -57,7 +57,7 @@ const ServicesSection = () => {
   const [openedServiceId, setOpenedServiceId] = useState<string | null>(null);
   const {isMobileBreakpoint} = useGetCurrentBreakpoint();
 
-  const openedService = openedServiceId && servicesCards[openedServiceId];
+  const openedService = openedServiceId && servicesCards[openedServiceId as keyof ServicesCardsType];
 
   const handleShowClick = () => {
     if (!isOpenServices) {
@@ -84,9 +84,9 @@ const ServicesSection = () => {
           {
             Object.entries(servicesCards).slice(0, isMobileBreakpoint ? 3 : 5).map(entry => (
               <ServicesCard
-                className={classNames[entry[0]]}
+                className={classNames[entry[0] as keyof typeof classNames]}
                 title={entry[0]}
-                img={images[entry[0]]}
+                img={images[entry[0] as keyof typeof images]}
                 key={entry[0]}
                 onClick={(e: MouseEvent) => handleOpenServiceClick(entry[0], e)}
               />
@@ -96,9 +96,9 @@ const ServicesSection = () => {
             {
               isOpenServices && Object.entries(servicesCards).slice(isMobileBreakpoint ? 3 : 5).map(entry => (
                 <ServicesCard
-                  className={classNames[entry[0]]}
+                  className={classNames[entry[0] as keyof typeof classNames]}
                   title={entry[0]}
-                  img={images[entry[0]]}
+                  img={images[entry[0] as keyof typeof images]}
                   key={entry[0]}
                   onClick={(e: MouseEvent) => handleOpenServiceClick(entry[0], e)}
                 />
@@ -119,7 +119,7 @@ const ServicesSection = () => {
             title={openedServiceId!}
             tags={openedService.tags}
             technologies={openedService.technologies}
-            img={images[openedServiceId]}
+            img={images[openedServiceId as keyof typeof images]}
           />
         )}
       </AnimatePresence>

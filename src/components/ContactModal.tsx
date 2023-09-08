@@ -7,7 +7,7 @@ import BaseInput from "@components/ui/BaseInput";
 import AvatarWithName from "@components/ui/AvatarWithName";
 import BookMeetingBtn from "@components/ui/BookMeetingBtn";
 import ReCAPTCHA from "react-google-recaptcha";
-import {isRequired, isValidEmail, validator} from "../utils/validate";
+import {isRequired, isValidEmail, ValidationFunction, validator} from "../utils/validate";
 
 type ContactModalProps = {
   onClose: () => void;
@@ -32,11 +32,15 @@ const initialFormData = Object.freeze({
   message: ''
 });
 
+type InputFieldsRulesType = {
+  [K: string]: Array<ValidationFunction>
+};
+
 const inputFieldsRules = {
   name: [(v: string) => isRequired(v)],
   email: [(v: string) => isRequired(v), (v: string) => isValidEmail(v)],
   message: [(v: string) => isRequired(v)]
-}
+} as InputFieldsRulesType;
 
 const inputFields = Object.freeze<inputFieldsType[]>([
   {
@@ -66,12 +70,15 @@ const ContactModal = ({
   });
   const recaptchaRef = useRef<ReCAPTCHA | null>(null);
 
-  const isErrorField = (id: string) => formDataErrors[id].length;
+  const isErrorField = (id: string) => !!formDataErrors[id as keyof typeof formDataErrors].length;
   //const isErrorForm = Object.values(formDataErrors).some((value: Array<ValidationError>) => !!value.length);
   const validate = () => {
     let isError = false;
     Object.keys(formData).forEach(key => {
-      const res = Array.from(validator(formData[key], inputFieldsRules[key]));
+      const res = Array.from(validator(
+        formData[key as keyof FormDataType],
+        inputFieldsRules[key as keyof InputFieldsRulesType])
+      );
       if (!isError) {
         isError = !!res.length;
       }
@@ -109,7 +116,7 @@ const ContactModal = ({
     }
   };
 
-  const onReCAPTCHAChange = async (captchaCode) => {
+  const onReCAPTCHAChange = async (captchaCode: string | null) => {
     if(!captchaCode) return;
     await console.log({...formData});
     setFormData({...initialFormData});
@@ -141,7 +148,7 @@ const ContactModal = ({
               inputFields.map(field => (
                   <BaseInput
                     key={field.id}
-                    value={formData[field.id]}
+                    value={formData[field.id as keyof FormDataType]}
                     onChange={handleChange}
                     label={field.label}
                     id={field.id}
@@ -157,7 +164,7 @@ const ContactModal = ({
             <ReCAPTCHA
               ref={recaptchaRef}
               size="invisible"
-              sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+              sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
               onChange={onReCAPTCHAChange}
             />
             <button

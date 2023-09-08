@@ -40,7 +40,7 @@ const AboutUsSection = () => {
     if (!wrapperRef || !wrapperRef.current) return;
     const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
     const icon = document.getElementById('icon-0');
-    setIconWidth(icon.offsetWidth);
+    setIconWidth(icon ? icon.offsetWidth : 0);
     const wrapperWidth = wrapperRef.current!.offsetWidth;
     const computedStyle = getComputedStyle(wrapperRef.current!);
     const paddingX = parseFloat(computedStyle.paddingLeft) + parseFloat(computedStyle.paddingRight);

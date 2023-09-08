@@ -6,7 +6,12 @@ import {navButtons} from "@components/Header";
 import {useContext} from "react";
 import {ModalContext} from "../../contexts/ModalContext";
 
-const MobileMenu = ({ onClose, isOpened }) => {
+type MobileMenuProps = {
+  isOpened: boolean,
+  onClose: () => void
+}
+
+const MobileMenu = ({ onClose, isOpened }: MobileMenuProps) => {
   const { setIsOpenedModal } = useContext(ModalContext);
 
   const nav = navButtons.map(item => {
