@@ -38,7 +38,7 @@ export default function Home() {
         </div>
       </section>
       <section className="px-10 tablet:px-5 sm:px-0">
-        <video className="w-full" autoPlay muted playsInline loop>
+        <video className="w-full rounded" autoPlay muted playsInline loop>
           <source
             src={isMobileBreakpoint ? "/banner-video-compressed-mobile.mp4" : "/banner-video-compressed.mp4"}
             type="video/mp4"
