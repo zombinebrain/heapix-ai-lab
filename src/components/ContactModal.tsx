@@ -2,12 +2,12 @@ import BaseTitle from "@components/ui/BaseTitle";
 import IconCancel from "@icons/IconCancel";
 import Socials from "@components/ui/Socials";
 import Modal from "@components/ui/BaseModal";
-import {ChangeEvent, FormEvent, useRef, useState} from "react";
+import {ChangeEvent, FormEvent, KeyboardEvent, useRef, useState} from "react";
 import BaseInput from "@components/ui/BaseInput";
 import AvatarWithName from "@components/ui/AvatarWithName";
 import BookMeetingBtn from "@components/ui/BookMeetingBtn";
 import ReCAPTCHA from "react-google-recaptcha";
-import {isRequired, isValidEmail, ValidationError, validator} from "../utils/validate";
+import {isRequired, isValidEmail, validator} from "../utils/validate";
 
 type ContactModalProps = {
   onClose: () => void;
@@ -64,10 +64,10 @@ const ContactModal = ({
     email: [],
     message: []
   });
-  const recaptchaRef = useRef<ReCAPTCHA>(null);
+  const recaptchaRef = useRef<ReCAPTCHA | null>(null);
 
   const isErrorField = (id: string) => formDataErrors[id].length;
-  const isErrorForm = Object.values(formDataErrors).some((value: Array<ValidationError>) => !!value.length);
+  //const isErrorForm = Object.values(formDataErrors).some((value: Array<ValidationError>) => !!value.length);
   const validate = () => {
     let isError = false;
     Object.keys(formData).forEach(key => {
@@ -83,11 +83,11 @@ const ContactModal = ({
     return isError;
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = (e: FormEvent | KeyboardEvent) => {
     e.preventDefault();
     const isError = validate();
     if (!isError) {
-      recaptchaRef.current.execute();
+      recaptchaRef.current?.execute();
     }
   };
 
@@ -103,19 +103,17 @@ const ContactModal = ({
     }))
   };
 
-  const handleKeyDown = (e) => {
-    if (e.keyCode === 13 && !e.shiftKey) {
+  const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.code === 'Enter' && !e.shiftKey) {
       handleSubmit(e);
     }
   };
 
   const onReCAPTCHAChange = async (captchaCode) => {
-    if(!captchaCode) {
-      return;
-    }
+    if(!captchaCode) return;
     await console.log({...formData});
     setFormData({...initialFormData});
-    recaptchaRef.current.reset();
+    recaptchaRef.current?.reset();
   }
 
   return (
@@ -148,9 +146,9 @@ const ContactModal = ({
                     label={field.label}
                     id={field.id}
                     isError={isErrorField(field.id)}
-                    type={field.type}
-                    isTextArea={field.isTextArea}
-                    onKeyDown={field.isTextArea && handleKeyDown}
+                    type={field.type!}
+                    isTextArea={field.isTextArea!}
+                    onKeyDown={handleKeyDown}
                     required
                   />
                 )

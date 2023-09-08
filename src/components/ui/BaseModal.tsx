@@ -10,7 +10,7 @@ const variants = {
 
 function Modal({children}) {
   const { isOpenedModal, setIsOpenedModal } = useContext(ModalContext);
-  const modalRef = useRef();
+  const modalRef = useRef<HTMLDivElement | null>(null);
 
   const closeModal = (e) => {
     if (modalRef.current === e.target) {

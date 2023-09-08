@@ -8,24 +8,25 @@ import IconPlatformTensorflow from "@icons/platform/IconPlatformTensorflow";
 import IconPlatformPyTorch from "@icons/platform/IconPlatformPyTorch";
 import IconPlatformKeras from "@icons/platform/IconPlatformKeras";
 import IconPlatformClaude from "@icons/platform/IconPlatformClaude";
-import {useScroll, useTransform, motion, useInView} from "framer-motion";
+import {useScroll, useTransform, motion} from "framer-motion";
 import useGetCurrentBreakpoint from "../../hooks/useGetCurrentBreakpoint";
-import {RefObject, useEffect, useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {useElementViewportPosition} from "../../hooks/useElementViewportPosition";
 
+const icons = [
+  <IconPlatformOpenAI />,
+  <IconPlatformMeta />,
+  <IconPlatformPinecone />,
+  <IconPlatformPython />,
+  <IconPlatformClaude />,
+  <IconPlatformFalcon />,
+  <IconPlatformTensorflow />,
+  <IconPlatformPyTorch />,
+  <IconPlatformAllenNLP />,
+  <IconPlatformKeras />
+];
+
 const AboutUsSection = () => {
-  const icons = [
-    <IconPlatformOpenAI />,
-    <IconPlatformMeta />,
-    <IconPlatformPinecone />,
-    <IconPlatformPython />,
-    <IconPlatformClaude />,
-    <IconPlatformFalcon />,
-    <IconPlatformTensorflow />,
-    <IconPlatformPyTorch />,
-    <IconPlatformAllenNLP />,
-    <IconPlatformKeras />
-  ];
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const [iconWidth, setIconWidth]  = useState(0);
   const [iconsOnScreen, setIconsOnScreen] = useState(0);
@@ -40,8 +41,8 @@ const AboutUsSection = () => {
     const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
     const icon = document.getElementById('icon-0');
     setIconWidth(icon.offsetWidth);
-    const wrapperWidth = wrapperRef.current.offsetWidth;
-    const computedStyle = getComputedStyle(wrapperRef.current);
+    const wrapperWidth = wrapperRef.current!.offsetWidth;
+    const computedStyle = getComputedStyle(wrapperRef.current!);
     const paddingX = parseFloat(computedStyle.paddingLeft) + parseFloat(computedStyle.paddingRight);
     const wrapperWidthWithoutPadding = wrapperWidth - paddingX - scrollbarWidth;
     setIconsOnScreen(wrapperWidthWithoutPadding / (iconWidth + mobileSpaceBetweenIcons));
