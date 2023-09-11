@@ -2,7 +2,7 @@ import {useEffect} from "react";
 
 const Cursor = () => {
   const isTouchEnabled = () => {
-    return ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+    return ('ontouchstart' in window)/* || (navigator.maxTouchPoints > 0)*/;
   };
 
   useEffect(() => {
