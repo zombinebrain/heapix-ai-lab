@@ -11,12 +11,14 @@ export const useElementViewportPosition = (ref: RefObject<HTMLElement>) => {
     const firstChild = ref.current.firstElementChild;
     const firstChildHeight = firstChild ? firstChild.clientHeight : 0;
 
+    console.log(firstChildHeight)
+
     const elementHeight = ref.current.offsetHeight;
     const viewportHeight = dimensions.height - 55;
     const largerThanViewport = elementHeight > viewportHeight;
     const pageHeight = document.body.scrollHeight - 55;
-    const delayedStart = ref.current.offsetTop - firstChildHeight;
-    const delayedEnd= delayedStart + elementHeight - firstChildHeight;
+    const delayedStart = ref.current.offsetTop + firstChildHeight;
+    const delayedEnd= delayedStart + elementHeight;
     const start = ref.current.offsetTop;
     const end = start + elementHeight;
 
