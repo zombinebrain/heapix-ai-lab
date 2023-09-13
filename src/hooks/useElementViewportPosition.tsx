@@ -11,8 +11,6 @@ export const useElementViewportPosition = (ref: RefObject<HTMLElement>) => {
     const firstChild = ref.current.firstElementChild;
     const firstChildHeight = firstChild ? firstChild.clientHeight : 0;
 
-    console.log(firstChildHeight)
-
     const elementHeight = ref.current.offsetHeight;
     const viewportHeight = dimensions.height - 55;
     const largerThanViewport = elementHeight > viewportHeight;
