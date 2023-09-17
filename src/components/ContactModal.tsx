@@ -2,39 +2,25 @@ import BaseTitle from "@components/ui/BaseTitle";
 import IconCancel from "@icons/IconCancel";
 import Socials from "@components/ui/Socials";
 import Modal from "@components/ui/BaseModal";
-import {ChangeEvent, FormEvent, KeyboardEvent, useRef, useState} from "react";
+import {ChangeEvent, FormEvent, KeyboardEvent, useEffect, useRef, useState} from "react";
 import BaseInput from "@components/ui/BaseInput";
 import AvatarWithName from "@components/ui/AvatarWithName";
 import BookMeetingBtn from "@components/ui/BookMeetingBtn";
 import ReCAPTCHA from "react-google-recaptcha";
-import {isRequired, isValidEmail, ValidationFunction, validator} from "../utils/validate";
-
-type ContactModalProps = {
-  onClose: () => void;
-}
-
-interface FormDataType {
-  name: string,
-  email: string,
-  message: string
-}
-
-interface inputFieldsType {
-  label: string,
-  id: string,
-  type?: string,
-  isTextArea?: boolean
-}
+import {isRequired, isValidEmail, validator} from "../utils/validate";
+import {
+  AlertStatusType,
+  ContactModalProps,
+  FormDataType,
+  InputFieldsRulesType,
+  inputFieldsType
+} from "../models/contact";
 
 const initialFormData = Object.freeze({
   name: '',
   email: '',
   message: ''
 });
-
-type InputFieldsRulesType = {
-  [K: string]: Array<ValidationFunction>
-};
 
 const inputFieldsRules = {
   name: [(v: string) => isRequired(v)],
@@ -59,9 +45,7 @@ const inputFields = Object.freeze<inputFieldsType[]>([
   }
 ]);
 
-const ContactModal = ({
-  onClose
-}: ContactModalProps) => {
+const ContactModal = ({onClose}: ContactModalProps) => {
   const [formData, setFormData] = useState<FormDataType>({...initialFormData});
   const [formDataErrors, setFormDataErrors] = useState({
     name: [],
@@ -69,9 +53,11 @@ const ContactModal = ({
     message: []
   });
   const recaptchaRef = useRef<ReCAPTCHA | null>(null);
+  const [alertStatus, setAlertStatus] = useState<AlertStatusType>(null);
 
   const isErrorField = (id: string) => !!formDataErrors[id as keyof typeof formDataErrors].length;
   //const isErrorForm = Object.values(formDataErrors).some((value: Array<ValidationError>) => !!value.length);
+
   const validate = () => {
     let isError = false;
     Object.keys(formData).forEach(key => {
@@ -116,12 +102,41 @@ const ContactModal = ({
     }
   };
 
+  const postData = async (data: FormDataType) => {
+    const response = await fetch(
+      'https://api.apispreadsheets.com/data/f4uIgbPTbhTrt24L/',
+      {
+        method: 'post',
+        credentials: 'omit',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({...data, date: new Date()})
+      }
+    );
+    if (response.status > 400 && response.status < 600) {
+      throw new Error();
+    }
+  }
+
   const onReCAPTCHAChange = async (captchaCode: string | null) => {
-    if(!captchaCode) return;
-    await console.log({...formData});
+    if (!captchaCode) return;
+    try {
+      await postData(formData);
+      setAlertStatus('SUCCESS');
+    } catch {
+      setAlertStatus('FAILED');
+    }
     setFormData({...initialFormData});
     recaptchaRef.current?.reset();
-  }
+  };
+
+  useEffect(() => {
+    if (!!alertStatus) {
+      const timeout = setTimeout(() => setAlertStatus(null), 2500);
+      return () => clearTimeout(timeout);
+    }
+  }, [alertStatus]);
 
   return (
     <Modal>
@@ -171,9 +186,22 @@ const ContactModal = ({
               type="submit"
               className="flex-1 group w-full px-11 py-6 sm:px-10 sm:py-5 flex flex-col items-center justify-center hover:bg-lemon"
             >
-              <div className="pb-1 border-b-2 border-lemon group-hover:text-black group-hover:border-black">Send
-                Request
-              </div>
+              {
+                !!alertStatus ? (
+                  <p className="text-body group-hover:text-black">
+                    {alertStatus === 'SUCCESS'
+                      ? 'Successfully sent!'
+                      : 'Something went wrong... Try again'
+                    }
+                  </p>
+                ) : (
+                  <div
+                    className="pb-1 border-b-2 border-lemon group-hover:text-black group-hover:border-black"
+                  >
+                    Send Request
+                  </div>
+                )
+              }
             </button>
           </form>
           <div
@@ -181,7 +209,7 @@ const ContactModal = ({
           >
             <div className="flex flex-wrap justify-between items-center sm:flex-col sm:items-start">
               <div className="sm:mb-4">
-                <AvatarWithName />
+                <AvatarWithName/>
               </div>
               <div className="text-grey-400 md:order-3 tablet:order-2 md:w-2/3 tablet:w-fit md:mt-7.5 tablet:mt-0">
                 contact@heapix.com
