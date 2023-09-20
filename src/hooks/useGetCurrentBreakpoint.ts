@@ -1,4 +1,4 @@
-import {useEffect, useMemo, useState} from "react";
+import {useEffect, useState} from "react";
 
 const TAILWIND_BREAKPOINTS = {
   sm: 600,
@@ -12,23 +12,21 @@ export default function useGetCurrentBreakpoint() {
     height: 0,
   });
 
-  const handleResize = () => {
-    setDimensions({
-      width: window.innerWidth,
-      height: window.innerHeight
-    });
-  };
-
   useEffect(() => {
+    const handleResize = () => {
+      setDimensions({
+        width: window.innerWidth,
+        height: window.innerHeight
+      });
+    };
     handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const currentBreakpoint = useMemo(() =>
-    Object.keys(TAILWIND_BREAKPOINTS).find((key) =>
-      TAILWIND_BREAKPOINTS[key as keyof typeof TAILWIND_BREAKPOINTS] >= dimensions.width
-    ), [dimensions]);
+  const currentBreakpoint = Object.keys(TAILWIND_BREAKPOINTS).find((key) =>
+    TAILWIND_BREAKPOINTS[key as keyof typeof TAILWIND_BREAKPOINTS] >= dimensions.width
+  );
 
   const isMobileBreakpoint = currentBreakpoint === 'sm';
 

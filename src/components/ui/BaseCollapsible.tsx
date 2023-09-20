@@ -36,6 +36,7 @@ const BaseCollapsible = ({
         </div>
         <AnimatePresence>
           <motion.div
+            key={name}
             initial="closed"
             animate={openedId === name ? "open" : "closed"}
             exit="closed"

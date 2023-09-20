@@ -20,7 +20,7 @@ const App = ({
         <Head>
           <title>Heapix AI Lab</title>
           <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
-          {/* <link rel="icon" type="image/ico" sizes="16x16" href="/favicon.ico" /> */}
+          <link rel="icon" type="image/ico" sizes="16x16" href="/favicon.ico" />
         </Head>
         <Component {...pageProps} />
       </div>
