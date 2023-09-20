@@ -2,7 +2,7 @@ import Header from '@components/Header';
 import Footer from '@components/Footer';
 import {ReactNode, useContext} from 'react';
 import { ModalContext } from '../contexts/ModalContext';
-import ContactModal from "@components/ContactModal";
+import ContactModal from "@components/contact/ContactModal";
 import {AnimatePresence} from "framer-motion";
 import Cursor from "@components/Cursor";
 

@@ -10,6 +10,7 @@ type BaseInputProps = {
   isTextArea?: boolean,
   required?: boolean,
   isError: boolean
+  errorText?: string
 };
 
 const BaseInput = ({
@@ -21,7 +22,8 @@ const BaseInput = ({
   isTextArea = false,
   required = false,
   isError = false,
-  onKeyDown
+  onKeyDown,
+  errorText
 }: BaseInputProps) => {
   return (
     <div className="relative group text-grey-400 hover:text-white flex flex-col base-padding">
@@ -51,6 +53,9 @@ const BaseInput = ({
             required={required}
             spellCheck="false"
           />
+      }
+      {
+        errorText && isError && <span className="text-orange text-callout">{errorText}</span>
       }
       <div className={`absolute bottom-0 left-0 w-full border-b border-grey-800 hover:border-grey-600 group-focus-within:border-lemon ${isError ? 'border-orange' : ''}`}/>
     </div>

@@ -1,6 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx,}'],
+  future: {
+    hoverOnlyWhenSupported: true,
+  },
   theme: {
     colors: {
       transparent: 'transparent',
@@ -17,7 +20,7 @@ module.exports = {
     screens: {
       md: {'max': '1200px'},
       tablet: {'max': '900px'},
-      sm: {'max': '600px'},
+      sm: {'max': '600px'}
     },
     extend: {
       fontFamily: {
@@ -37,6 +40,9 @@ module.exports = {
         '25': '6.25rem', //100px
         '35': '8.75rem', //140px
       },
+      borderRadius: {
+        '2.5xl': '20px'
+      },
       zIndex: {
         'header': 50,
         'overlay': 999,
@@ -47,11 +53,18 @@ module.exports = {
         'cursor-click': {
           '0%, 100%': { transform: 'scale(1)' },
           '50%': { transform: 'scale(.3)', rotate: '360deg' }
+        },
+        'alert': {
+          '0%': { rotate: 0 },
+          '33%': { rotate: '3deg' },
+          '66%': { rotate: '1.5deg' },
+          '100%': { rotate: '2deg' }
         }
       },
       animation: {
         'slow-spin': 'spin 5s linear infinite',
-        'cursor-click': 'cursor-click .5s forwards'
+        'cursor-click': 'cursor-click .5s forwards',
+        'alert-appearance': 'alert 1.5s forwards'
       }
     },
   },

@@ -6,7 +6,7 @@ import {useContext, useState} from "react";
 import {scrollIntoView} from "../utils/scrollIntoView";
 import IconCancel from "@icons/IconCancel";
 import {motion, AnimatePresence} from "framer-motion";
-import ContactModal from "@components/ContactModal";
+import ContactModal from "@components/contact/ContactModal";
 
 export const navButtons = Object.freeze([
   {

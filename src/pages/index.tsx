@@ -8,11 +8,9 @@ import BenefitsSection from "@components/sections/BenefitsSection";
 import AboutUsSection from "@components/sections/AboutUsSection";
 import ServicesSection from "@components/sections/ServicesSection";
 import FaqSection from "@components/sections/FaqSection";
-import useGetCurrentBreakpoint from "../hooks/useGetCurrentBreakpoint";
+import BannerVideoSection from "@components/sections/BannerVideoSection";
 
 export default function Home() {
-  const {isMobileBreakpoint} = useGetCurrentBreakpoint();
-
   return (
     <BaseLayout>
       <section className="flex flex-col items-center pt-25 sm:py-12.5 sm:px-3.75">
@@ -37,19 +35,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="px-10 tablet:px-5 sm:px-0">
-        <video className="w-full rounded" autoPlay muted playsInline loop>
-          <source
-            src={isMobileBreakpoint ? "/banner-video-mobile.webm" : "/banner-video.webm"}
-            type="video/webm"
-          />
-          <source
-            src={isMobileBreakpoint ? "/banner-video-compressed-mobile.mp4" : "/banner-video-compressed.mp4"}
-            type="video/mp4"
-          />
-          Sorry, your browser doesn't support videos.
-        </video>
-      </section>
+      <BannerVideoSection />
       <div className="sm:hidden">
         <BaseSpacer/>
       </div>
