@@ -3,7 +3,6 @@ import IconCancel from "@icons/IconCancel";
 import BaseSmallTag from "@components/ui/BaseSmallTag";
 import {useClickOutside} from "../../hooks/useClickOutside";
 import {TechnologiesType} from "../../models/services";
-import Image, {StaticImageData} from "next/image";
 import {MutableRefObject} from "react";
 import {useHideScroll} from "../../hooks/useHideScroll";
 
@@ -13,7 +12,7 @@ type ServicesModalProps = {
   title: string,
   tags: string[],
   technologies: Array<TechnologiesType>,
-  img: StaticImageData
+  img: string
 };
 
 const variants = {
@@ -62,8 +61,22 @@ const ServicesModal = ({
               ))
             }
           </div>
-          <div className="bg-grey-800 rounded mb-2.5 w-full">
-            <Image src={img} alt={title} className="rounded" />
+          <div className="bg-grey-800 rounded mb-2.5 w-full aspect-[4/3]">
+            <picture>
+              <source
+                srcSet={`\\images\\3x\\${img}.webp`}
+                media="(min-width: 1200px)"
+                type="image/webp"
+              />
+              <img
+                src={`\\images\\1x\\${img}.webp`}
+                className="w-full rounded"
+                alt={img}
+                draggable={false}
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
           </div>
           {
             technologies.map(card => (
