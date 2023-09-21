@@ -70,7 +70,7 @@ const ContactForm = () => {
     const timeout = setTimeout(() => {
       controller.abort();
       throw new Error('Timeout');
-    }, 3000);
+    }, 5000);
 
     const response = await fetch(
       'https://api.apispreadsheets.com/data/f4uIgbPTbhTrt24L/',
@@ -165,6 +165,13 @@ const ContactForm = () => {
         onSubmit={handleSubmit}
         className="relative flex flex-col text-body col-span-5 tablet:col-span-full border-t border-grey-800"
       >
+        <ReCAPTCHA
+          ref={recaptchaRef}
+          size="invisible"
+          sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
+          onChange={onReCAPTCHAChange}
+          className="hidden"
+        />
         {
           inputFields.map(field => (
               <BaseInput
@@ -193,12 +200,6 @@ const ContactForm = () => {
             Send Request
           </div>
         </button>
-        <ReCAPTCHA
-          ref={recaptchaRef}
-          size="invisible"
-          sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
-          onChange={onReCAPTCHAChange}
-        />
       </form>
       <AnimatePresence>
         {

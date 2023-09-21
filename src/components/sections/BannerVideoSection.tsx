@@ -3,7 +3,7 @@ const BannerVideoSection = () => {
     <section className="px-10 tablet:px-5 sm:px-0">
       <video className="w-full rounded" autoPlay muted playsInline loop>
         <source
-          src={"/banner-video-webm-1440.webm"}
+          src={"/banner-video-webm-compressed.webm"}
           type="video/webm"
         />
         <source
