@@ -8,18 +8,6 @@ import {scrollIntoView} from "../../utils/scrollIntoView";
 import useGetCurrentBreakpoint from "../../hooks/useGetCurrentBreakpoint";
 import ServicesModal from "@components/services/ServicesModal";
 import ServicesCard from "@components/services/ServicesCard";
-import demand_forecasting_and_inventory_management from "../../../public/images/demand_forecasting_and_inventory_management.webp";
-import document_processing_automation from "../../../public/images/document_processing_automation.webp";
-import personalized_marketing from "../../../public/images/personalized_marketing.webp";
-import data_analysis_and_decision_making from "../../../public/images/data_analysis_and_decision_making.webp";
-import customer_churn_prediction from "../../../public/images/customer_churn_prediction.webp";
-import customer_service_automation from "../../../public/images/customer_service_automation.webp";
-import logistics_optimization from "../../../public/images/logistics_optimization.webp";
-import social_media_analysis from "../../../public/images/social_media_analysis.webp";
-import fraud_detection from "../../../public/images/fraud_detection.webp";
-import business_trend_forecasting from "../../../public/images/business_trend_forecasting.webp";
-import text_recognition_and_processing from "../../../public/images/text_recognition_and_processing.webp";
-import media_data_analysis from "../../../public/images/media_data_analysis.webp";
 
 const classNames = Object.freeze({
   [SERVICES_IDS.MANAGEMENT]: 'col-start-1 col-span-4 tablet:col-span-2 sm:col-span-2',
@@ -37,18 +25,18 @@ const classNames = Object.freeze({
 });
 
 const images = Object.freeze({
-  [SERVICES_IDS.MANAGEMENT]: demand_forecasting_and_inventory_management,
-  [SERVICES_IDS.AUTOMATION]: document_processing_automation,
-  [SERVICES_IDS.MARKETING]: personalized_marketing,
-  [SERVICES_IDS.DATA_ANALYSIS]: data_analysis_and_decision_making,
-  [SERVICES_IDS.CHURN_PREDICTION]: customer_churn_prediction,
-  [SERVICES_IDS.SERVICE_AUTOMATION]: customer_service_automation,
-  [SERVICES_IDS.LOGISTICS]: logistics_optimization,
-  [SERVICES_IDS.SOCIALS_ANALYSIS]: social_media_analysis,
-  [SERVICES_IDS.FRAUD_DETECTION]: fraud_detection,
-  [SERVICES_IDS.TREND_FORECASTING]: business_trend_forecasting,
-  [SERVICES_IDS.TEXT_RECOGNITION]: text_recognition_and_processing,
-  [SERVICES_IDS.MEDIA_ANALYSIS]: media_data_analysis
+  [SERVICES_IDS.MANAGEMENT]: "demand_forecasting_and_inventory_management",
+  [SERVICES_IDS.AUTOMATION]: 'document_processing_automation',
+  [SERVICES_IDS.MARKETING]: 'personalized_marketing',
+  [SERVICES_IDS.DATA_ANALYSIS]: 'data_analysis_and_decision_making',
+  [SERVICES_IDS.CHURN_PREDICTION]: 'customer_churn_prediction',
+  [SERVICES_IDS.SERVICE_AUTOMATION]: 'customer_service_automation',
+  [SERVICES_IDS.LOGISTICS]: 'logistics_optimization',
+  [SERVICES_IDS.SOCIALS_ANALYSIS]: 'social_media_analysis',
+  [SERVICES_IDS.FRAUD_DETECTION]: 'fraud_detection',
+  [SERVICES_IDS.TREND_FORECASTING]: 'business_trend_forecasting',
+  [SERVICES_IDS.TEXT_RECOGNITION]: 'text_recognition_and_processing',
+  [SERVICES_IDS.MEDIA_ANALYSIS]: 'media_data_analysis'
 });
 
 const ServicesSection = () => {
