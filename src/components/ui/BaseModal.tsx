@@ -1,7 +1,7 @@
 import {useRef, useContext, ReactNode, MouseEvent} from "react";
 import { createPortal } from "react-dom";
 import { ModalContext } from "../../contexts/ModalContext";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import {useHideScroll} from "../../hooks/useHideScroll";
 
 const variants = {
@@ -22,7 +22,7 @@ function Modal({ children }: { children: ReactNode }) {
   };
 
   return createPortal(
-    <motion.div
+    <m.div
       initial="closed"
       animate={isOpenedModal ? "open" : "closed"}
       exit="closed"
@@ -33,7 +33,7 @@ function Modal({ children }: { children: ReactNode }) {
       ref={modalRef}
     >
       {children}
-    </motion.div>,
+    </m.div>,
     document.getElementById("modal")!
   );
 }

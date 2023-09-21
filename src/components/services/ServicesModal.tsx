@@ -1,4 +1,4 @@
-import {motion} from "framer-motion";
+import {m} from "framer-motion";
 import IconCancel from "@icons/IconCancel";
 import BaseSmallTag from "@components/ui/BaseSmallTag";
 import {useClickOutside} from "../../hooks/useClickOutside";
@@ -36,7 +36,7 @@ const ServicesModal = ({
     <>
       <div
         className="top-0 left-0 fixed w-screen h-screen bg-black opacity-50 flex justify-end z-overlay"/>
-      <motion.div
+      <m.div
         ref={modalRef}
         initial="closed"
         animate={isOpen ? "open" : "closed"}
@@ -74,7 +74,7 @@ const ServicesModal = ({
             ))
           }
         </div>
-      </motion.div>
+      </m.div>
     </>
   );
 };

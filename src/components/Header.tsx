@@ -5,7 +5,7 @@ import {ModalContext} from "../contexts/ModalContext";
 import {useContext, useState} from "react";
 import {scrollIntoView} from "../utils/scrollIntoView";
 import IconCancel from "@icons/IconCancel";
-import {motion, AnimatePresence} from "framer-motion";
+import {m, AnimatePresence} from "framer-motion";
 import ContactModal from "@components/contact/ContactModal";
 
 export const navButtons = Object.freeze([
@@ -75,7 +75,7 @@ const Header = () => {
         }
       </nav>
       <AnimatePresence>
-        <motion.button
+        <m.button
           initial="closed"
           animate={isMenuOpen ? "open" : "closed"}
           exit="closed"
@@ -87,7 +87,7 @@ const Header = () => {
           {
             isMenuOpen ? <IconCancel/> : <IconBurger />
           }
-        </motion.button>
+        </m.button>
       </AnimatePresence>
 
       <AnimatePresence>

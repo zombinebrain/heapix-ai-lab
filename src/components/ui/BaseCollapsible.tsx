@@ -1,7 +1,7 @@
 import IconMinus from '@components/icons/IconMinus';
 import IconPlus from '@components/icons/IconPlus';
 import {ReactNode} from 'react';
-import {motion, AnimatePresence} from "framer-motion";
+import {m, AnimatePresence} from "framer-motion";
 
 type BaseCollapsibleProps = {
   name: string,
@@ -35,7 +35,7 @@ const BaseCollapsible = ({
           {name}
         </div>
         <AnimatePresence>
-          <motion.div
+          <m.div
             key={name}
             initial="closed"
             animate={openedId === name ? "open" : "closed"}
@@ -49,13 +49,13 @@ const BaseCollapsible = ({
                 ? <IconMinus/>
                 : <IconPlus className="px-[2px]"/>
             }
-          </motion.div>
+          </m.div>
         </AnimatePresence>
       </div>
       <AnimatePresence>
         {
           openedId === name && (
-            <motion.div
+            <m.div
               initial={{height: 0, marginTop: 0}}
               animate={{height: 'auto', marginTop: 'var(--margin-to)'}}
               exit={{height: 0, marginTop: 0}}
@@ -63,7 +63,7 @@ const BaseCollapsible = ({
               className="overflow-hidden [--margin-to:20px] tablet:[--margin-to:10px]"
             >
               {content}
-            </motion.div>
+            </m.div>
           )
         }
       </AnimatePresence>
