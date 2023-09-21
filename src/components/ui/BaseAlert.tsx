@@ -1,5 +1,5 @@
 import IconCancel from "@icons/IconCancel";
-import {motion} from "framer-motion";
+import {m} from "framer-motion";
 import { MouseEvent } from "react";
 
 export type BaseAlertProps = {
@@ -18,7 +18,7 @@ const BaseAlert = ({
   onClose
 }: BaseAlertProps) => {
   return (
-    <motion.div
+    <m.div
       className="fixed z-max top-0 left-0"
       initial={{opacity: 0}}
       animate={{opacity: 1}}
@@ -54,7 +54,7 @@ const BaseAlert = ({
           }
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 };
 

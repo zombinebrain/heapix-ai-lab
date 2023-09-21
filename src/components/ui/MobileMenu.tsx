@@ -1,7 +1,7 @@
 import Socials from '@components/ui/Socials';
 import BookMeetingBtn from "@components/ui/BookMeetingBtn";
 import {scrollIntoView} from "../../utils/scrollIntoView";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import {navButtons} from "@components/Header";
 import {useContext} from "react";
 import {ModalContext} from "../../contexts/ModalContext";
@@ -41,7 +41,7 @@ const MobileMenu = ({ onClose, isOpened }: MobileMenuProps) => {
   }
 
   return (
-    <motion.div
+    <m.div
       initial="closed"
       animate={isOpened ? "open" : "closed"}
       exit="closed"
@@ -64,7 +64,7 @@ const MobileMenu = ({ onClose, isOpened }: MobileMenuProps) => {
           </div>
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 };
 

@@ -8,7 +8,7 @@ import IconPlatformTensorflow from "@icons/platform/IconPlatformTensorflow";
 import IconPlatformPyTorch from "@icons/platform/IconPlatformPyTorch";
 import IconPlatformKeras from "@icons/platform/IconPlatformKeras";
 import IconPlatformClaude from "@icons/platform/IconPlatformClaude";
-import {useScroll, useTransform, motion} from "framer-motion";
+import {useScroll, useTransform, m} from "framer-motion";
 import useGetCurrentBreakpoint from "../../hooks/useGetCurrentBreakpoint";
 import {useEffect, useRef, useState} from "react";
 import {useElementViewportPosition} from "../../hooks/useElementViewportPosition";
@@ -57,7 +57,7 @@ const AboutUsSection = () => {
 
   return (
     <>
-      <motion.section
+      <m.section
         id="about"
         ref={wrapperRef}
         className="overflow-hidden text-title base-padding base-vertical-grid gap-y-7.5 sm:flex sm:flex-col"
@@ -72,7 +72,7 @@ const AboutUsSection = () => {
           className="row-start-2 col-start-5 col-span-full tablet:col-start-2"
           margin={isMobileBreakpoint ? '-55px 0px -55px' : '-100px 0px -250px'}
         />
-        <motion.div
+        <m.div
           style={{ x }}
           className="col-span-full flex space-x-5 sm:space-x-1.5"
         >
@@ -83,13 +83,13 @@ const AboutUsSection = () => {
               </div>
             ))
           }
-        </motion.div>
+        </m.div>
         <Paragraph
           text="We transform data into insights, optimising processes for smarter and informed decisions."
           className="text-grey-400 col-span-8 tablet:col-span-full"
           margin={isMobileBreakpoint ? '-55px 0px -55px' : '0px 0px -200px'}
         />
-      </motion.section>
+      </m.section>
     </>
   );
 };
@@ -109,7 +109,7 @@ const textVariants = {
 
 const Paragraph = ({ className = '', text = '', margin }: ParagraphProps) => {
   return (
-    <motion.p
+    <m.p
       viewport={{ once: false, amount: "all", margin }}
       variants={textVariants}
       initial="unfocused"
@@ -117,6 +117,6 @@ const Paragraph = ({ className = '', text = '', margin }: ParagraphProps) => {
       className={className}
     >
       { text }
-    </motion.p>
+    </m.p>
   );
 };
