@@ -5,6 +5,7 @@ import {useClickOutside} from "../../hooks/useClickOutside";
 import {TechnologiesType} from "../../models/services";
 import Image, {StaticImageData} from "next/image";
 import {MutableRefObject} from "react";
+import {useHideScroll} from "../../hooks/useHideScroll";
 
 type ServicesModalProps = {
   onClose: () => void,
@@ -29,6 +30,7 @@ const ServicesModal = ({
   img
 }: ServicesModalProps) => {
   const modalRef = useClickOutside(onClose) as MutableRefObject<HTMLDivElement | null>;
+  useHideScroll(isOpen, true);
 
   return (
     <>

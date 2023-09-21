@@ -1,7 +1,8 @@
-import {useRef, useContext, ReactNode, MouseEvent} from "react";
+import {useRef, useContext, ReactNode, MouseEvent, useEffect} from "react";
 import { createPortal } from "react-dom";
 import { ModalContext } from "../../contexts/ModalContext";
 import { motion } from "framer-motion";
+import {useHideScroll} from "../../hooks/useHideScroll";
 
 const variants = {
   open: { opacity: 1, y: 0,},
@@ -11,6 +12,8 @@ const variants = {
 function Modal({ children }: { children: ReactNode }) {
   const { isOpenedModal, setIsOpenedModal } = useContext(ModalContext);
   const modalRef = useRef<HTMLDivElement | null>(null);
+
+  useHideScroll(isOpenedModal);
 
   const closeModal = (e: MouseEvent) => {
     if (modalRef.current === e.target) {
