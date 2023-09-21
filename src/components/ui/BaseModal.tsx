@@ -1,4 +1,4 @@
-import {useRef, useContext, ReactNode, MouseEvent, useEffect} from "react";
+import {useRef, useContext, ReactNode, MouseEvent} from "react";
 import { createPortal } from "react-dom";
 import { ModalContext } from "../../contexts/ModalContext";
 import { motion } from "framer-motion";
