@@ -56,11 +56,11 @@ const BaseCollapsible = ({
         {
           openedId === name && (
             <motion.div
-              initial={{height: 0}}
-              animate={{height: 'auto'}}
-              exit={{height: 0}}
+              initial={{height: 0, marginTop: 0}}
+              animate={{height: 'auto', marginTop: 'var(--margin-to)'}}
+              exit={{height: 0, marginTop: 0}}
               transition={{duration: .2}}
-              className="overflow-hidden mt-5 tablet:mt-2.5"
+              className="overflow-hidden [--margin-to:20px] tablet:[--margin-to:10px]"
             >
               {content}
             </motion.div>
