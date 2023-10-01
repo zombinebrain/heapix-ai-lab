@@ -9,7 +9,7 @@ const TAILWIND_BREAKPOINTS = {
 export default function useGetCurrentBreakpoint() {
   const [dimensions, setDimensions] = useState({
     width: 0,
-    height: 0,
+    height: 0
   });
 
   useEffect(() => {

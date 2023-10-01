@@ -3,8 +3,9 @@ import IconCancel from "@icons/IconCancel";
 import BaseSmallTag from "@components/ui/BaseSmallTag";
 import {useClickOutside} from "../../hooks/useClickOutside";
 import {TechnologiesType} from "../../models/services";
-import {MutableRefObject} from "react";
+import {MutableRefObject, useEffect, useState} from "react";
 import {useHideScroll} from "../../hooks/useHideScroll";
+import useGetCurrentBreakpoint from "../../hooks/useGetCurrentBreakpoint";
 
 type ServicesModalProps = {
   onClose: () => void,
@@ -30,6 +31,23 @@ const ServicesModal = ({
 }: ServicesModalProps) => {
   const modalRef = useClickOutside(onClose) as MutableRefObject<HTMLDivElement | null>;
   useHideScroll(isOpen, true);
+  const [imgSrc, setImgSrc] = useState(`\\images\\placeholders\\${img}.webp`);
+  const { dimensions } = useGetCurrentBreakpoint();
+
+  useEffect(() => {
+    if (dimensions.width === 0) return;
+    const mainImg = new Image();
+    let src;
+    if (dimensions.width >= 1200) {
+      src = `\\images\\3x\\${img}.webp`;
+    } else {
+      src = `\\images\\1x\\${img}.webp`;
+    }
+    mainImg.src = src;
+    mainImg.onload = () => {
+      setImgSrc(src);
+    };
+  }, [img, dimensions.width]);
 
   return (
     <>
@@ -62,21 +80,14 @@ const ServicesModal = ({
             }
           </div>
           <div className="bg-grey-800 rounded mb-2.5 w-full aspect-[4/3]">
-            <picture>
-              <source
-                srcSet={`\\images\\3x\\${img}.webp`}
-                media="(min-width: 1200px)"
-                type="image/webp"
-              />
-              <img
-                src={`\\images\\1x\\${img}.webp`}
-                className="w-full rounded"
-                alt={img}
-                draggable={false}
-                loading="lazy"
-                decoding="async"
-              />
-            </picture>
+            <img
+              src={imgSrc}
+              className="w-full rounded"
+              alt={img}
+              draggable={false}
+              loading="lazy"
+              decoding="async"
+            />
           </div>
           {
             technologies.map(card => (
