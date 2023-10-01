@@ -20,7 +20,7 @@ const ServicesCard = ({
   useEffect(() => {
     if (dimensions.width === 0) return;
     const mainImg = new Image();
-    let src;
+    let src: string;
     if (dimensions.width >= 1920) {
       src = `\\images\\3x\\${img}.webp`;
     } else if (dimensions.width >= 600) {

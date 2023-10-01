@@ -37,7 +37,7 @@ const ServicesModal = ({
   useEffect(() => {
     if (dimensions.width === 0) return;
     const mainImg = new Image();
-    let src;
+    let src: string;
     if (dimensions.width >= 1200) {
       src = `\\images\\3x\\${img}.webp`;
     } else {
