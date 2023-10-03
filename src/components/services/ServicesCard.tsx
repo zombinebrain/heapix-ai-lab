@@ -15,9 +15,9 @@ const ServicesCard = ({
   img
 }: ServicesCardProps) => {
   return (
-    <div
+    <button
       onClick={onClick}
-      className={`group cursor-pointer flex flex-col ${className}`}
+      className={`group flex flex-col ${className}`}
     >
       <div className="bg-grey-800 rounded aspect-[4/3] mb-2.5 w-full overflow-hidden">
         <Image
@@ -30,7 +30,7 @@ const ServicesCard = ({
       <div className="text-body group-hover:text-lemon transition-colors duration-300">
         {title}
       </div>
-    </div>
+    </button>
   );
 };
 

@@ -176,6 +176,12 @@ html, body {
   overflow-x: hidden;
 }
 
+@media (max-width: 900px) {
+  a, button {
+    cursor: default;
+  }
+}
+
 * {
   box-sizing: border-box;
 }
