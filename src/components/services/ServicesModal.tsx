@@ -3,9 +3,9 @@ import IconCancel from "@icons/IconCancel";
 import BaseSmallTag from "@components/ui/BaseSmallTag";
 import {useClickOutside} from "../../hooks/useClickOutside";
 import {TechnologiesType} from "../../models/services";
-import {MutableRefObject, useEffect, useState} from "react";
+import {MutableRefObject} from "react";
 import {useHideScroll} from "../../hooks/useHideScroll";
-import useGetCurrentBreakpoint from "../../hooks/useGetCurrentBreakpoint";
+import Image, {StaticImageData} from "next/image";
 
 type ServicesModalProps = {
   onClose: () => void,
@@ -13,7 +13,7 @@ type ServicesModalProps = {
   title: string,
   tags: string[],
   technologies: Array<TechnologiesType>,
-  img: string
+  img: StaticImageData
 };
 
 const variants = {
@@ -31,10 +31,10 @@ const ServicesModal = ({
 }: ServicesModalProps) => {
   const modalRef = useClickOutside(onClose) as MutableRefObject<HTMLDivElement | null>;
   useHideScroll(isOpen, true);
-  const [imgSrc, setImgSrc] = useState(`\\images\\placeholders\\${img}.webp`);
-  const { dimensions } = useGetCurrentBreakpoint();
+  //const [imgSrc, setImgSrc] = useState(`\\images\\placeholders\\${img}.webp`);
+  //const { dimensions } = useGetCurrentBreakpoint();
 
-  useEffect(() => {
+/*  useEffect(() => {
     if (dimensions.width === 0) return;
     const mainImg = new Image();
     let src: string;
@@ -47,7 +47,7 @@ const ServicesModal = ({
     mainImg.onload = () => {
       setImgSrc(src);
     };
-  }, [img, dimensions.width]);
+  }, [img, dimensions.width]);*/
 
   return (
     <>
@@ -80,13 +80,11 @@ const ServicesModal = ({
             }
           </div>
           <div className="bg-grey-800 rounded mb-2.5 w-full aspect-[4/3]">
-            <img
-              src={imgSrc}
+            <Image
+              src={img}
               className="w-full rounded"
-              alt={img}
-              draggable={false}
-              loading="lazy"
-              decoding="async"
+              alt={title}
+              placeholder="blur"
             />
           </div>
           {
