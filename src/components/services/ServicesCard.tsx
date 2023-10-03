@@ -1,11 +1,11 @@
-import {MouseEvent, useEffect, useState} from "react";
-import useGetCurrentBreakpoint from "../../hooks/useGetCurrentBreakpoint";
+import {MouseEvent} from "react";
+import Image from "next/image";
 
 type ServicesCardProps = {
   className: string,
   title: string,
   onClick: (e: MouseEvent) => void,
-  img: string
+  img: HTMLImageElement
 };
 
 const ServicesCard = ({
@@ -14,40 +14,17 @@ const ServicesCard = ({
   onClick,
   img
 }: ServicesCardProps) => {
-  const [imgSrc, setImgSrc] = useState(`\\images\\placeholders\\${img}.webp`);
-  const { dimensions } = useGetCurrentBreakpoint();
-
-  useEffect(() => {
-    if (dimensions.width === 0) return;
-    const mainImg = new Image();
-    let src: string;
-    if (dimensions.width >= 1920) {
-      src = `\\images\\3x\\${img}.webp`;
-    } else if (dimensions.width >= 600) {
-      src = `\\images\\2x\\${img}.webp`;
-    } else {
-      src = `\\images\\1x\\${img}.webp`;
-    }
-    mainImg.src = src;
-    mainImg.onload = () => {
-      setImgSrc(src);
-    };
-  }, [img, dimensions.width]);
-
-
   return (
     <div
       onClick={onClick}
       className={`group cursor-pointer flex flex-col ${className}`}
     >
       <div className="bg-grey-800 rounded aspect-[4/3] mb-2.5 w-full overflow-hidden">
-        <img
-          src={imgSrc}
+        <Image
+          src={img}
           className="w-full rounded hover:scale-[1.15] tablet:hover:scale-none transition duration-700 grayscale hover:grayscale-0"
-          alt={img}
-          draggable={false}
-          loading="lazy"
-          decoding="async"
+          alt={title}
+          placeholder="blur"
         />
       </div>
       <div className="text-body group-hover:text-lemon transition-colors duration-300">
