@@ -27,9 +27,9 @@ const BaseCollapsible = ({
 
   return (
     <div className="flex flex-col text-body px-7.5 py-5 sm:p-3.75">
-      <div
+      <button
         onClick={handleClick}
-        className="flex justify-between items-center group cursor-pointer"
+        className="flex justify-between items-center group"
       >
         <div className="group-hover:text-lemon mr-5 text-start transition-colors duration-300">
           {name}
@@ -51,7 +51,7 @@ const BaseCollapsible = ({
             }
           </m.div>
         </AnimatePresence>
-      </div>
+      </button>
       <AnimatePresence>
         {
           openedId === name && (
