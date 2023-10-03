@@ -5,7 +5,7 @@ import {useClickOutside} from "../../hooks/useClickOutside";
 import {TechnologiesType} from "../../models/services";
 import {MutableRefObject} from "react";
 import {useHideScroll} from "../../hooks/useHideScroll";
-import Image from "next/image";
+import Image, {StaticImageData} from "next/image";
 
 type ServicesModalProps = {
   onClose: () => void,
@@ -13,7 +13,7 @@ type ServicesModalProps = {
   title: string,
   tags: string[],
   technologies: Array<TechnologiesType>,
-  img: HTMLImageElement
+  img: StaticImageData
 };
 
 const variants = {

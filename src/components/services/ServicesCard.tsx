@@ -1,11 +1,11 @@
 import {MouseEvent} from "react";
-import Image from "next/image";
+import Image, {StaticImageData} from "next/image";
 
 type ServicesCardProps = {
   className: string,
   title: string,
   onClick: (e: MouseEvent) => void,
-  img: HTMLImageElement
+  img: StaticImageData
 };
 
 const ServicesCard = ({
