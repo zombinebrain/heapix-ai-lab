@@ -28,7 +28,7 @@ function Modal({ children }: { children: ReactNode }) {
       exit="closed"
       variants={variants}
       transition={{duration: .1}}
-      className="overflow-y-auto overflow-x-hidden fixed top-0 left-0 right-0 w-screen h-screen bg-black z-9999 text-white"
+      className="overflow-y-auto overflow-x-hidden fixed top-0 left-0 right-0 w-screen h-screen tablet:h-full bg-black z-9999 text-white"
       onClick={(e) => closeModal(e)}
       ref={modalRef}
     >
