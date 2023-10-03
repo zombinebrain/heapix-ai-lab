@@ -60,7 +60,7 @@ const ServicesModal = ({
         exit="closed"
         variants={variants}
         transition={{duration: .2}}
-        className="top-0 right-0 fixed h-screen w-1/2 tablet:w-2/3 sm:w-screen p-5 flex flex-col bg-black z-9999 rounded-xl border border-grey-600"
+        className="top-0 right-0 fixed h-screen tablet:h-full w-1/2 tablet:w-2/3 sm:w-screen p-5 flex flex-col bg-black z-9999 rounded-xl border border-grey-600"
       >
         <div className="relative">
           <h2 className="py-5 sm:py-3.75 pr-5">{title}</h2>
